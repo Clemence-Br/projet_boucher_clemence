@@ -46,7 +46,7 @@ document
 
     showSummary({
       login,
-      nom: lastname,
+      lastname: lastname,
       firstname,
       adresse,
       email,
