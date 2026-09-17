@@ -1,0 +1,148 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f4f7f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.container {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 700px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+#registration-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.left-form-group,
+.right-form-group {
+  flex: 1 1 250px;
+  min-width: 220px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+@media (max-width: 550px) {
+  .left-form-group,
+  .right-form-group {
+    flex: 1 1 100%;
+  }
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #555;
+  font-size: 14px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  text-align: center;
+  border: 1px solid #f5c6cb;
+  font-size: 14px;
+}
+
+.hidden {
+  display: none;
+}
+
+#summary-container p {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #666;
+}
+
+#summary-list {
+  list-style: none;
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+#summary-list li {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 15px;
+  color: #444;
+  word-break: break-all;
+}
+
+#summary-list li:last-child {
+  border-bottom: none;
+}
+
+#summary-list li strong {
+  color: #222;
+  margin-right: 5px;
+}
+
+#btn-retour {
+  background-color: #6c757d;
+}
+
+#btn-retour:hover {
+  background-color: #5a6268;
+}

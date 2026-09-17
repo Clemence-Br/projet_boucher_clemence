@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulaire d'inscription</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div id="form-container">
+        <h2>Inscription</h2>
+        <div id="error-message" class="error hidden"></div>
+
+        <form id="registration-form" novalidate>
+          <div class="left-form-group">
+            <div class="form-group">
+              <label for="login">Login *</label>
+              <input type="text" id="login" name="login" required />
+            </div>
+
+            <div class="form-group">
+              <label for="password">Mot de passe *</label>
+              <input type="password" id="password" name="password" required />
+            </div>
+
+            <div class="form-group">
+              <label for="confirmPassword"
+                >Confirmation du mot de passe *</label
+              >
+              <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="lastname">Nom *</label>
+              <input type="text" id="lastname" name="lastname" required />
+            </div>
+
+            <div class="form-group">
+              <label for="firstname">Prénom *</label>
+              <input type="text" id="firstname" name="firstname" required />
+            </div>
+          </div>
+
+          <div class="right-form-group">
+            <div class="form-group">
+              <label for="adresse">Adresse *</label>
+              <input type="text" id="adresse" name="adresse" required />
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email *</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+
+            <div class="form-group">
+              <label for="phoneNumber">Téléphone *</label>
+              <input type="text" id="phoneNumber" name="phoneNumber" required />
+            </div>
+
+            <div class="form-group">
+              <label for="birthDate">Date de naissance *</label>
+              <input type="date" id="birthDate" name="birthDate" required />
+            </div>
+          </div>
+
+          <button type="submit">S'inscrire</button>
+        </form>
+      </div>
+
+      <!-- Summary -->
+      <div id="summary-container" class="hidden">
+        <h2>Récapitulatif de l'inscription</h2>
+        <p>Vérifiez les informations saisies :</p>
+        <ul id="summary-list"></ul>
+        <button id="btn-retour" onclick="location.reload()">Recommencer</button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
