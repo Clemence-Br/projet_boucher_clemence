@@ -1,0 +1,243 @@
+// ===== Variables =====
+$violet-900: #3b1d6e;
+$violet-700: #5b2fa8;
+$violet-500: #7c4dff;
+$violet-300: #b39dff;
+$violet-100: #ede7ff;
+$violet-50: #f7f4ff;
+$white: #ffffff;
+$error: #d6336c;
+$text: #2d2150;
+
+$font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+$radius: 10px;
+
+// ===== Mixins =====
+@mixin focus-ring($color: $violet-500) {
+  border-color: $color;
+  box-shadow: 0 0 0 4px rgba($color, 0.15);
+}
+
+// ===== Centrage du formulaire au milieu de la page =====
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 24px;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, $violet-100 0%, $violet-50 50%, $white 100%);
+}
+
+// ===== Carte du formulaire =====
+.form-container {
+  width: 100%;
+  max-width: 440px;
+  padding: 40px 36px;
+  box-sizing: border-box;
+  background: $white;
+  border-radius: 16px;
+  border-top: 6px solid $violet-500;
+  box-shadow: 0 10px 40px rgba($violet-700, 0.18);
+
+  @media (max-width: 480px) {
+    padding: 28px 20px;
+  }
+
+  h2 {
+    margin: 0 0 28px;
+    text-align: center;
+    color: $violet-700;
+    font-family: $font-family;
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
+}
+
+// ===== Champs =====
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+  font-family: $font-family;
+
+  label {
+    margin-bottom: 6px;
+    color: $text;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  input {
+    padding: 12px 14px;
+    border: 2px solid $violet-100;
+    border-radius: $radius;
+    background: $violet-50;
+    color: $text;
+    font-size: 1rem;
+    outline: none;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s,
+      background 0.2s;
+
+    &:hover {
+      border-color: $violet-300;
+    }
+
+    &:focus {
+      background: $white;
+      @include focus-ring;
+    }
+
+    &.ng-invalid.ng-touched,
+    &.ng-invalid.ng-dirty {
+      border-color: $error;
+      background: #fff5f8;
+
+      &:focus {
+        @include focus-ring($error);
+      }
+    }
+  }
+}
+
+// ===== Messages d'erreur =====
+.error {
+  margin-top: 6px;
+  color: $error;
+  font-family: $font-family;
+  font-size: 0.82rem;
+  font-weight: 500;
+
+  span {
+    display: block;
+  }
+}
+
+// ===== Bouton =====
+button[type='submit'] {
+  width: 100%;
+  margin-top: 10px;
+  padding: 14px;
+  border: none;
+  border-radius: $radius;
+  background: linear-gradient(135deg, $violet-500, $violet-700);
+  color: $white;
+  font-family: $font-family;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition:
+    transform 0.15s,
+    box-shadow 0.2s,
+    opacity 0.2s;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba($violet-500, 0.4);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    background: $violet-300;
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+// ===== Étoile des champs obligatoires =====
+label.required::after {
+  content: ' *';
+  color: $error;
+  font-weight: 700;
+}
+
+.required-note {
+  margin: -16px 0 24px;
+  text-align: center;
+  color: rgba($text, 0.7);
+  font-family: $font-family;
+  font-size: 0.82rem;
+
+  .star {
+    color: $error;
+    font-weight: 700;
+  }
+}
+
+// ===== Récapitulatif =====
+.success-icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(135deg, $violet-500, $violet-700);
+  color: $white;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.recap-intro {
+  margin: -12px 0 20px;
+  text-align: center;
+  color: rgba($text, 0.75);
+  font-family: $font-family;
+  font-size: 0.95rem;
+}
+
+.recap {
+  margin: 0 0 24px;
+  padding: 8px 18px;
+  background: $violet-50;
+  border: 2px solid $violet-100;
+  border-radius: $radius;
+  font-family: $font-family;
+
+  .recap-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 0;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid $violet-100;
+    }
+  }
+
+  dt {
+    color: $violet-700;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  dd {
+    margin: 0;
+    color: $text;
+    font-size: 0.95rem;
+    text-align: right;
+    word-break: break-word;
+  }
+}
+
+button[type='submit'],
+button[type='button'] {
+  width: 100%;
+  margin-top: 10px;
+  padding: 14px;
+  border: none;
+  border-radius: $radius;
+  background: linear-gradient(135deg, $violet-500, $violet-700);
+  color: $white;
+  font-family: $font-family;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
