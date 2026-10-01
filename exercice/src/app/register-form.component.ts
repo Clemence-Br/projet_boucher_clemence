@@ -21,10 +21,8 @@ interface User {
 export class RegisterFormComponent {
   user: User = this.emptyUser();
 
-  // Copie des données soumises, affichée dans le récapitulatif
   submittedUser: User | null = null;
 
-  // Le mot de passe n'est jamais affiché en clair
   get maskedPassword(): string {
     return '•'.repeat(this.submittedUser?.password.length ?? 0);
   }
@@ -41,7 +39,7 @@ export class RegisterFormComponent {
 
   newRegistration() {
     this.user = this.emptyUser();
-    this.submittedUser = null; // réaffiche un formulaire vierge
+    this.submittedUser = null;
   }
 
   private emptyUser(): User {
