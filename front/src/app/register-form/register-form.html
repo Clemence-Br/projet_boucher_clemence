@@ -1,0 +1,149 @@
+<div class="form-container">
+  @if (!submittedUser) {
+    <!-- ===== FORMULAIRE ===== -->
+    <h2>Inscription</h2>
+    <p class="required-note"><span class="star">*</span> Champs obligatoires</p>
+
+    <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)" novalidate>
+      <!-- Login -->
+      <div class="form-group">
+        <label for="login" class="required">Login</label>
+        <input
+          type="text"
+          id="login"
+          name="login"
+          [(ngModel)]="user.login"
+          required
+          #login="ngModel"
+        />
+        @if (hasError(login)) {
+          <div class="error">Le login est requis.</div>
+        }
+      </div>
+
+      <!-- Nom -->
+      <div class="form-group">
+        <label for="nom" class="required">Nom</label>
+        <input type="text" id="nom" name="nom" [(ngModel)]="user.nom" required #nom="ngModel" />
+        
+        @if (hasError(nom)) {
+          <div class="error">Le nom est requis.</div>
+        }
+      </div>
+
+      <!-- Prénom -->
+      <div class="form-group">
+        <label for="prenom" class="required">Prénom</label>
+        <input
+          type="text"
+          id="prenom"
+          name="prenom"
+          [(ngModel)]="user.prenom"
+          required
+          #prenom="ngModel"
+        />
+
+        @if (hasError(prenom)) {
+          <div class="error">Le prénom est requis.</div>
+        }
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email" class="required">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          [(ngModel)]="user.email"
+          required
+          email
+          #email="ngModel"
+        />
+
+       @if (hasError(email)) {
+        <div class="error">
+          @if (hasErrorType(email, 'required')) {
+            <span>L'email est requis.</span>
+          }
+          @if (hasErrorType(email, 'email')) {
+            <span>Le format de l'email est invalide.</span>
+          }
+        </div>
+      }
+      </div>
+
+      <!-- Mot de passe -->
+      <div class="form-group">
+        <label for="password" class="required">Mot de passe</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="user.password"
+          required
+          #password="ngModel"
+        />
+        
+        @if (hasError(password)) {
+          <div class="error">Le mot de passe est requis.</div>
+        }
+      </div>
+
+      <!-- Confirmation -->
+      <div class="form-group">
+        <label for="confirmPassword" class="required">Confirmation du mot de passe</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          [(ngModel)]="user.confirmPassword"
+          required
+          #confirmPassword="ngModel"
+        />
+  
+        @if (hasError(confirmPassword)) {
+          <div class="error">La confirmation est requise.</div>
+        }
+        @if (showMismatchError(confirmPassword)) {
+          <div class="error">Les mots de passe ne correspondent pas.</div>
+        }
+      </div>
+
+      <button type="submit" [disabled]="!canSubmit(registerForm)">
+        S'inscrire
+      </button>
+    </form>
+  } @else {
+
+    <!-- ===== RÉCAPITULATIF ===== -->
+    <div class="success-icon">✓</div>
+    <h2>Inscription réussie</h2>
+    <p class="recap-intro">Voici le récapitulatif de vos informations :</p>
+
+    <dl class="recap">
+      <div class="recap-row">
+        <dt>Login</dt>
+        <dd>{{ submittedUser.login }}</dd>
+      </div>
+      <div class="recap-row">
+        <dt>Nom</dt>
+        <dd>{{ submittedUser.nom }}</dd>
+      </div>
+      <div class="recap-row">
+        <dt>Prénom</dt>
+        <dd>{{ submittedUser.prenom }}</dd>
+      </div>
+      <div class="recap-row">
+        <dt>Email</dt>
+        <dd>{{ submittedUser.email }}</dd>
+      </div>
+      <div class="recap-row">
+        <dt>Mot de passe</dt>
+        <dd>{{ maskedPassword }}</dd>
+      </div>
+    </dl>
+
+    <button type="button" (click)="newRegistration()">Nouvelle inscription</button>
+  }
+</div>
