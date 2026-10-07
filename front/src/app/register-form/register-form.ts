@@ -14,8 +14,8 @@ interface User {
   selector: 'app-register-form',
   standalone: true,
   imports: [FormsModule],
-  templateUrl: './register-form.component.html',
-  styleUrls: ['./register-form.component.scss'],
+  templateUrl: './register-form.html',
+  styleUrls: ['./register-form.scss'],
 })
 export class RegisterFormComponent {
   user: User = this.emptyUser();

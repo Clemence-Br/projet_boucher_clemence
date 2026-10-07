@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { RegisterFormComponent } from './register-form.component';
+import { RegisterFormComponent } from './register-form/register-form';
 
 @Component({
   selector: 'app-root',
