@@ -1,0 +1,41 @@
+<div class="success-icon">✓</div>
+<h2>Pollution déclarée</h2>
+<p class="recap-intro">Voici le récapitulatif de votre déclaration :</p>
+
+@if (pollution.photoUrl) {
+  @if (imageFailed()) {
+    <p class="photo-error">Impossible de charger l'image fournie.</p>
+  } @else {
+    <div class="photo-wrapper">
+      @if (imageLoading()) {
+        <div class="photo-loader" role="status" aria-live="polite">
+          <span class="spinner"></span>
+          <span>Chargement de l'image…</span>
+        </div>
+      }
+
+      <img
+        class="photo"
+        [class.hidden]="imageLoading()"
+        [src]="pollution.photoUrl"
+        [alt]="'Photo de la pollution : ' + pollution.title"
+        (load)="onImageLoad()"
+        (error)="onImageError()"
+      />
+    </div>
+  }
+}
+
+<dl class="recap">
+  <div class="recap-row"><dt>Titre</dt><dd>{{ pollution.title }}</dd></div>
+  <div class="recap-row"><dt>Type</dt><dd>{{ pollution.type }}</dd></div>
+  <div class="recap-row"><dt>Description</dt><dd>{{ pollution.description }}</dd></div>
+  <div class="recap-row">
+    <dt>Date</dt><dd>{{ pollution.observationDate | date: 'dd/MM/yyyy' }}</dd>
+  </div>
+  <div class="recap-row"><dt>Lieu</dt><dd>{{ pollution.location }}</dd></div>
+  <div class="recap-row"><dt>Latitude</dt><dd>{{ pollution.latitude }}</dd></div>
+  <div class="recap-row"><dt>Longitude</dt><dd>{{ pollution.longitude }}</dd></div>
+</dl>
+
+<button type="button" (click)="newDeclaration.emit()">Nouvelle déclaration</button>

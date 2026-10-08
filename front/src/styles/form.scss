@@ -1,0 +1,152 @@
+@use 'theme' as t;
+
+@mixin focus-ring($color: t.$green-500) {
+  border-color: $color;
+  box-shadow: 0 0 0 3px rgba($color, 0.2);
+}
+
+@mixin button-primary {
+  width: 100%;
+  margin-top: 6px;
+  padding: 10px 14px;
+  border: none;
+  border-radius: t.$radius;
+  background: t.$gradient-primary;
+  color: t.$white;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    transform 0.15s,
+    box-shadow 0.2s,
+    opacity 0.2s;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(t.$green-600, 0.4);
+  }
+
+  &:focus-visible {
+    outline: 3px solid rgba(t.$ocean-500, 0.5);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+@mixin form {
+  h2 {
+    margin: 0 0 2px;
+    text-align: center;
+    color: t.$ocean-700;
+    font-size: 1.35rem;
+  }
+
+  .required-note {
+    margin: 0 0 12px;
+    text-align: center;
+    font-size: 0.75rem;
+    color: rgba(t.$text, 0.65);
+
+    .star {
+      color: t.$error;
+      font-weight: 700;
+    }
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+
+    label {
+      margin-bottom: 3px;
+      font-size: 0.78rem;
+      font-weight: 600;
+
+      &.required::after {
+        content: ' *';
+        color: t.$error;
+      }
+    }
+
+    input,
+    select,
+    textarea {
+      padding: 8px 10px;
+      border: 1.5px solid t.$ocean-100;
+      border-radius: t.$radius;
+      background: t.$white;
+      color: t.$text;
+      font: inherit;
+      font-size: 0.88rem;
+      outline: none;
+      transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
+
+      &::placeholder {
+        color: rgba(t.$text, 0.4);
+      }
+
+      &:hover {
+        border-color: t.$green-500;
+      }
+
+      &:focus {
+        @include focus-ring;
+      }
+
+      &.ng-invalid:is(.ng-touched, .ng-dirty) {
+        border-color: t.$error;
+        background: t.$error-bg;
+
+        &:focus {
+          @include focus-ring(t.$error);
+        }
+      }
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 60px;
+    }
+
+    select {
+      appearance: none;
+      padding-right: 32px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%230e5a73' stroke-width='2'%3E%3Cpath d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+    }
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 12px;
+
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .error {
+    margin-top: 3px;
+    color: t.$error;
+    font-size: 0.72rem;
+    font-weight: 500;
+
+    span {
+      display: block;
+    }
+  }
+
+  button {
+    @include button-primary;
+  }
+}

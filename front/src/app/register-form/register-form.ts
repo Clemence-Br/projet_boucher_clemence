@@ -17,7 +17,7 @@ interface User {
   templateUrl: './register-form.html',
   styleUrls: ['./register-form.scss'],
 })
-export class RegisterFormComponent {
+export class RegisterForm {
   user: User = this.emptyUser();
 
   submittedUser: User | null = null;
