@@ -8,17 +8,17 @@
   } @else {
     <div class="photo-wrapper">
       @if (imageLoading()) {
-        <div class="photo-loader" role="status" aria-live="polite">
+        <output class="photo-loader" aria-live="polite">
           <span class="spinner"></span>
           <span>Chargement de l'image…</span>
-        </div>
+        </output>
       }
 
       <img
         class="photo"
         [class.hidden]="imageLoading()"
         [src]="pollution.photoUrl"
-        [alt]="'Photo de la pollution : ' + pollution.title"
+        [alt]="'Pollution : ' + pollution.title"
         (load)="onImageLoad()"
         (error)="onImageError()"
       />

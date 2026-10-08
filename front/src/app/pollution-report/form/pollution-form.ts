@@ -16,9 +16,10 @@ type ControlName =
 /** La date doit être valide et ne pas être dans le futur */
 function observationDateValidator(control: AbstractControl): ValidationErrors | null {
   const value = control.value as string;
-  if (!value) return null; // `required` s'en charge
+  if (!value) return null; // required s'en charge
+
   const date = new Date(value);
-  if (isNaN(date.getTime())) return { invalidDate: true };
+  if (Number.isNaN(date.getTime())) return { invalidDate: true };
   return date > new Date() ? { futureDate: true } : null;
 }
 

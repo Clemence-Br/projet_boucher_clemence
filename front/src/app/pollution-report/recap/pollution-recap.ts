@@ -13,6 +13,7 @@ export class PollutionRecap {
 
   readonly newDeclaration = output<void>();
 
+  // Gestion l'état de chargement et d'erreur de l'image
   readonly imageLoading = signal(true);
   readonly imageFailed = signal(false);
 
