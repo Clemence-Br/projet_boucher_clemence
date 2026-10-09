@@ -1,0 +1,65 @@
+<h2>Déclarer une pollution</h2>
+<p class="required-note"><span class="star">*</span> Champs obligatoires</p>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+  <div class="form-group">
+    <label for="title" class="required">Titre de la pollution</label>
+    <input id="title" type="text" formControlName="title" />
+    @if (errorMessage('title'); as msg) { <div class="error">{{ msg }}</div> }
+  </div>
+
+  <!-- Type + Date -->
+  <div class="form-row">
+    <div class="form-group">
+      <label for="type" class="required">Type</label>
+      <select id="type" formControlName="type">
+        <option value="" disabled>-- Choisir --</option>
+        @for (t of pollutionTypes; track t) {
+          <option [value]="t">{{ t }}</option>
+        }
+      </select>
+      @if (errorMessage('type'); as msg) { <div class="error">{{ msg }}</div> }
+    </div>
+
+    <div class="form-group">
+      <label for="observationDate" class="required">Date</label>
+      <input id="observationDate" type="date" formControlName="observationDate" [max]="today" />
+      @if (errorMessage('observationDate'); as msg) { <div class="error">{{ msg }}</div> }
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="location" class="required">Lieu</label>
+    <input id="location" type="text" formControlName="location" />
+    @if (errorMessage('location'); as msg) { <div class="error">{{ msg }}</div> }
+  </div>
+
+  <!-- Latitude + Longitude -->
+  <div class="form-row">
+    <div class="form-group">
+      <label for="latitude" class="required">Latitude</label>
+      <input id="latitude" type="number" step="any" formControlName="latitude" />
+      @if (errorMessage('latitude'); as msg) { <div class="error">{{ msg }}</div> }
+    </div>
+
+    <div class="form-group">
+      <label for="longitude" class="required">Longitude</label>
+      <input id="longitude" type="number" step="any" formControlName="longitude" />
+      @if (errorMessage('longitude'); as msg) { <div class="error">{{ msg }}</div> }
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="description" class="required">Description</label>
+    <textarea id="description" rows="2" formControlName="description"></textarea>
+    @if (errorMessage('description'); as msg) { <div class="error">{{ msg }}</div> }
+  </div>
+
+  <div class="form-group">
+    <label for="photoUrl">Photo (URL)</label>
+    <input id="photoUrl" type="text" formControlName="photoUrl" placeholder="https://..." />
+    @if (errorMessage('photoUrl'); as msg) { <div class="error">{{ msg }}</div> }
+  </div>
+
+  <button type="submit" [disabled]="form.invalid">Déclarer</button>
+</form>
