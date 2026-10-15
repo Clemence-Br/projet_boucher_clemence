@@ -10,8 +10,14 @@ import {
 import { POLLUTION_TYPES, Pollution } from '../../models/pollution';
 
 type ControlName =
-  | 'title' | 'type' | 'description' | 'observationDate'
-  | 'location' | 'latitude' | 'longitude' | 'photoUrl';
+  | 'title'
+  | 'type'
+  | 'description'
+  | 'observationDate'
+  | 'location'
+  | 'latitude'
+  | 'longitude'
+  | 'photoUrl';
 
 /** La date doit être valide et ne pas être dans le futur */
 function observationDateValidator(control: AbstractControl): ValidationErrors | null {
@@ -39,10 +45,13 @@ export class PollutionForm {
   readonly form = new FormGroup({
     title: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required, Validators.maxLength(100)],
+      validators: [Validators.required, Validators.pattern(/\S/), Validators.maxLength(100)],
     }),
     type: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-    description: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    description: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.pattern(/\S/)],
+    }),
     observationDate: new FormControl('', {
       nonNullable: true,
       validators: [Validators.required, observationDateValidator],
@@ -60,7 +69,7 @@ export class PollutionForm {
     ]),
     photoUrl: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.pattern(/^$|^https?:\/\/\S+$/i)], // optionnel
+      validators: [Validators.pattern(/^\s*(https?:\/\/\S+)?\s*$/i)], // optionnel
     }),
   });
 
