@@ -1,0 +1,39 @@
+@use 'theme' as t;
+
+@mixin button-primary {
+  width: 100%;
+  margin-top: 10px;
+  padding: 14px;
+  border: none;
+  border-radius: t.$radius;
+  background: t.$gradient-primary;
+  color: t.$white;
+  font: inherit;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition:
+    transform 0.15s,
+    box-shadow 0.2s,
+    opacity 0.2s;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(t.$green-500, 0.4);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:focus-visible {
+    outline: 3px solid rgba(t.$ocean-500, 0.5);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    background: t.$green-300;
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}

@@ -1,0 +1,51 @@
+@use 'theme' as t;
+
+@mixin page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100dvh;
+  padding: 24px;
+  overflow: hidden;
+  background: t.$gradient-page;
+  font-family: t.$font-family;
+  color: t.$text;
+
+  @media (max-width: 480px) {
+    padding: 12px;
+  }
+}
+
+@mixin card($max-width: 480px) {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: $max-width;
+  max-height: 100%;
+  overflow: hidden;
+  background: t.$white;
+  border-radius: t.$radius-lg;
+  box-shadow: 0 12px 40px rgba(t.$green-900, 0.14);
+
+  &::before {
+    content: '';
+    flex: 0 0 6px;
+    background: t.$gradient-accent;
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: t.$card-pad-y 24px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: t.$green-300 transparent;
+
+    @media (max-width: 480px) {
+      padding: t.$card-pad-y 16px;
+    }
+  }
+}

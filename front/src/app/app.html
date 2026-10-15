@@ -1,3 +1,22 @@
+<header class="navbar">
+  <a class="brand" routerLink="/">
+    <span class="brand-logo">🌱</span>
+    <span>
+      Nom de l'app
+      <small>Recensement et gestion des pollutions</small>
+    </span>
+  </a>
+
+  <nav class="nav-links">
+    <a routerLink="/inscription" routerLinkActive="active">Inscription</a>
+    <a routerLink="/pollution" routerLinkActive="active">Déclarer une pollution</a>
+  </nav>
+</header>
+
 <main>
-  <app-register-form></app-register-form>
+  <div class="card">
+    <div class="card-body">
+      <router-outlet />
+    </div>
+  </div>
 </main>

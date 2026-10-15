@@ -1,0 +1,79 @@
+@use 'theme' as t;
+@use 'form';
+
+@mixin recap {
+  .success-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    margin: 0 auto 8px;
+    border-radius: 50%;
+    background: t.$gradient-primary;
+    color: t.$white;
+    font-size: 1.4rem;
+    font-weight: 700;
+    box-shadow: 0 6px 14px rgba(t.$green-600, 0.35);
+  }
+
+  h2 {
+    margin: 0 0 2px;
+    text-align: center;
+    color: t.$ocean-700;
+    font-size: 1.35rem;
+  }
+
+  .recap-intro {
+    margin: 0 0 12px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: rgba(t.$text, 0.7);
+  }
+
+  .recap {
+    margin: 0 0 12px;
+    padding: 2px 14px;
+    background: t.$green-50;
+    border: 1.5px solid t.$green-100;
+    border-radius: t.$radius;
+
+    &-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 7px 0;
+
+      &:not(:last-child) {
+        border-bottom: 1px solid t.$green-100;
+      }
+
+      @media (max-width: 480px) {
+        flex-direction: column;
+        gap: 2px;
+      }
+    }
+
+    dt {
+      color: t.$ocean-700;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    dd {
+      margin: 0;
+      font-size: 0.88rem;
+      text-align: right;
+      word-break: break-word;
+      white-space: pre-line;
+
+      @media (max-width: 480px) {
+        text-align: left;
+      }
+    }
+  }
+
+  button {
+    @include form.button-primary;
+  }
+}

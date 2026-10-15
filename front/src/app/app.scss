@@ -1,0 +1,137 @@
+@use '../styles/theme' as t;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  font-family: t.$font-family;
+}
+
+// ===== Navbar =====
+.navbar {
+  flex: 0 0 t.$navbar-height;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  background: rgba(t.$ocean-900, 0.94);
+  backdrop-filter: blur(8px);
+  border-bottom: 3px solid t.$green-500;
+  box-shadow: 0 4px 20px rgba(t.$ocean-900, 0.3);
+
+  @media (max-width: 480px) {
+    padding: 0 12px;
+  }
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: t.$white;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-decoration: none;
+
+  &-logo {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: t.$gradient-primary;
+    font-size: 1.1rem;
+  }
+
+  small {
+    display: block;
+    color: t.$green-100;
+    font-size: 0.68rem;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+  }
+
+  @media (max-width: 480px) {
+    small {
+      display: none;
+    }
+  }
+}
+
+.nav-links {
+  display: flex;
+  gap: 6px;
+
+  a {
+    padding: 8px 16px;
+    border-radius: 999px;
+    color: rgba(t.$white, 0.8);
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+      background 0.2s,
+      color 0.2s;
+
+    &:hover {
+      background: rgba(t.$white, 0.12);
+      color: t.$white;
+    }
+
+    &.active {
+      background: t.$green-500;
+      color: t.$white;
+    }
+
+    @media (max-width: 480px) {
+      padding: 8px 10px;
+      font-size: 0.78rem;
+    }
+  }
+}
+
+main {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+
+  @media (max-width: 480px) {
+    padding: 10px;
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 540px;
+  max-height: 100%;
+  overflow: hidden;
+  background: rgba(t.$white, 0.92);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(t.$white, 0.7);
+  border-radius: t.$radius-lg;
+  box-shadow: 0 14px 40px rgba(t.$ocean-900, 0.22);
+
+  &::before {
+    content: '';
+    flex: 0 0 5px;
+    background: t.$gradient-accent;
+  }
+
+  .card-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 20px 26px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: t.$green-500 transparent;
+
+    @media (max-width: 480px) {
+      padding: 16px;
+    }
+  }
+}

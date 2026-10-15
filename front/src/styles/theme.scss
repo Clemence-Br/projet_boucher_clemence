@@ -1,0 +1,27 @@
+// ===== Palette =====
+$ocean-900: #072f3f;
+$ocean-700: #0e5a73;
+$ocean-500: #1f7a8c;
+$ocean-100: #d9eef2;
+
+$green-600: #2e9e6b;
+$green-500: #3fb27f;
+$green-100: #dff3ea;
+$green-50: #f1faf6;
+
+$amber: #f2a93b;
+$white: #ffffff;
+$text: #12303a;
+
+$error: #c0392b;
+$error-bg: #fdf1ef;
+
+// ===== Typo & formes =====
+$font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+$radius: 8px;
+$radius-lg: 16px;
+$navbar-height: 64px;
+
+// ===== Dégradés =====
+$gradient-primary: linear-gradient(135deg, $green-500, $green-600);
+$gradient-accent: linear-gradient(90deg, $green-500, $ocean-500);
