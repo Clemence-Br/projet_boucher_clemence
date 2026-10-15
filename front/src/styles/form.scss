@@ -138,6 +138,17 @@
     }
   }
 
+  .alert {
+    margin-top: 4px;
+    padding: 10px 12px;
+    border: 1.5px solid t.$error;
+    border-radius: t.$radius;
+    background: t.$error-bg;
+    color: t.$error;
+    font-size: 0.82rem;
+    font-weight: 500;
+  }
+
   button {
     @include button-primary;
   }
