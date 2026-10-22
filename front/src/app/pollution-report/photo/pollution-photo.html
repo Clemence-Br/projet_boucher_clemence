@@ -1,0 +1,21 @@
+@if (failed()) {
+  <p class="photo-error">Impossible de charger l'image fournie.</p>
+} @else {
+  <div class="photo-wrapper">
+    @if (loading()) {
+      <div class="photo-loader" role="status" aria-live="polite">
+        <span class="spinner"></span>
+        <span>Chargement de l'image…</span>
+      </div>
+    }
+
+    <img
+      class="photo"
+      [class.hidden]="loading()"
+      [src]="src"
+      [alt]="alt"
+      (load)="onLoad()"
+      (error)="onError()"
+    />
+  </div>
+}

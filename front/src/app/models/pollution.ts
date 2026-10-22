@@ -9,8 +9,7 @@ export const POLLUTION_TYPES = [
 
 export type PollutionType = (typeof POLLUTION_TYPES)[number];
 
-export interface Pollution {
-  id?: number;
+export interface PollutionData {
   title: string;
   type: PollutionType;
   description: string;
@@ -19,4 +18,9 @@ export interface Pollution {
   latitude: number;
   longitude: number;
   photoUrl: string | null;
+}
+
+// Enregistré côté backend
+export interface Pollution extends PollutionData {
+  id: number;
 }

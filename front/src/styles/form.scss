@@ -5,151 +5,95 @@
   box-shadow: 0 0 0 3px rgba($color, 0.2);
 }
 
-@mixin button-primary {
-  width: 100%;
-  margin-top: 6px;
-  padding: 10px 14px;
-  border: none;
-  border-radius: t.$radius;
-  background: t.$gradient-primary;
-  color: t.$white;
-  font: inherit;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition:
-    transform 0.15s,
-    box-shadow 0.2s,
-    opacity 0.2s;
+// ===== Champs de formulaire (partagés par tous les formulaires) =====
+.required-note {
+  margin: 0 0 12px;
+  text-align: center;
+  font-size: 0.75rem;
+  color: rgba(t.$text, 0.65);
 
-  &:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 18px rgba(t.$green-600, 0.4);
-  }
-
-  &:focus-visible {
-    outline: 3px solid rgba(t.$ocean-500, 0.5);
-    outline-offset: 2px;
-  }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+  .star {
+    color: t.$error;
+    font-weight: 700;
   }
 }
 
-@mixin form {
-  h2 {
-    margin: 0 0 2px;
-    text-align: center;
-    color: t.$ocean-700;
-    font-size: 1.35rem;
-  }
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
 
-  .required-note {
-    margin: 0 0 12px;
-    text-align: center;
-    font-size: 0.75rem;
-    color: rgba(t.$text, 0.65);
+  label {
+    margin-bottom: 3px;
+    font-size: 0.78rem;
+    font-weight: 600;
 
-    .star {
+    &.required::after {
+      content: ' *';
       color: t.$error;
-      font-weight: 700;
     }
   }
 
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 10px;
+  input,
+  select,
+  textarea {
+    padding: 8px 10px;
+    border: 1.5px solid t.$ocean-100;
+    border-radius: t.$radius;
+    background: t.$white;
+    color: t.$text;
+    font: inherit;
+    font-size: 0.88rem;
+    outline: none;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
 
-    label {
-      margin-bottom: 3px;
-      font-size: 0.78rem;
-      font-weight: 600;
-
-      &.required::after {
-        content: ' *';
-        color: t.$error;
-      }
+    &::placeholder {
+      color: rgba(t.$text, 0.4);
     }
 
-    input,
-    select,
-    textarea {
-      padding: 8px 10px;
-      border: 1.5px solid t.$ocean-100;
-      border-radius: t.$radius;
-      background: t.$white;
-      color: t.$text;
-      font: inherit;
-      font-size: 0.88rem;
-      outline: none;
-      transition:
-        border-color 0.2s,
-        box-shadow 0.2s;
+    &:hover {
+      border-color: t.$green-500;
+    }
 
-      &::placeholder {
-        color: rgba(t.$text, 0.4);
-      }
+    &:focus {
+      @include focus-ring;
+    }
 
-      &:hover {
-        border-color: t.$green-500;
-      }
+    &.ng-invalid:is(.ng-touched, .ng-dirty) {
+      border-color: t.$error;
+      background: t.$error-bg;
 
       &:focus {
-        @include focus-ring;
-      }
-
-      &.ng-invalid:is(.ng-touched, .ng-dirty) {
-        border-color: t.$error;
-        background: t.$error-bg;
-
-        &:focus {
-          @include focus-ring(t.$error);
-        }
+        @include focus-ring(t.$error);
       }
     }
-
-    textarea {
-      resize: vertical;
-      min-height: 60px;
-    }
   }
 
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0 12px;
-
-    @media (max-width: 480px) {
-      grid-template-columns: 1fr;
-    }
+  textarea {
+    resize: vertical;
+    min-height: 60px;
   }
+}
 
-  .error {
-    margin-top: 3px;
-    color: t.$error;
-    font-size: 0.72rem;
-    font-weight: 500;
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 12px;
 
-    span {
-      display: block;
-    }
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
   }
+}
 
-  .alert {
-    margin-top: 4px;
-    padding: 10px 12px;
-    border: 1.5px solid t.$error;
-    border-radius: t.$radius;
-    background: t.$error-bg;
-    color: t.$error;
-    font-size: 0.82rem;
-    font-weight: 500;
-  }
+.error {
+  margin-top: 3px;
+  color: t.$error;
+  font-size: 0.72rem;
+  font-weight: 500;
 
-  button {
-    @include button-primary;
+  span {
+    display: block;
   }
 }

@@ -9,7 +9,6 @@ $green-500: #3fb27f;
 $green-100: #dff3ea;
 $green-50: #f1faf6;
 
-$amber: #f2a93b;
 $white: #ffffff;
 $text: #12303a;
 
@@ -25,3 +24,4 @@ $navbar-height: 64px;
 // ===== Dégradés =====
 $gradient-primary: linear-gradient(135deg, $green-500, $green-600);
 $gradient-accent: linear-gradient(90deg, $green-500, $ocean-500);
+$gradient-page: linear-gradient(135deg, $ocean-100 0%, $green-100 50%, #f6f4ec 100%);

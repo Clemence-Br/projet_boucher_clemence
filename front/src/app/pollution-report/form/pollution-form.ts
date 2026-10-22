@@ -1,4 +1,4 @@
-import { Component, output } from '@angular/core';
+import { Component, Input, OnInit, output } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -7,7 +7,7 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
-import { POLLUTION_TYPES, Pollution } from '../../models/pollution';
+import { POLLUTION_TYPES, PollutionData, PollutionType } from '../../models/pollution';
 
 type ControlName =
   | 'title'
@@ -31,13 +31,18 @@ function observationDateValidator(control: AbstractControl): ValidationErrors | 
 
 @Component({
   selector: 'app-pollution-form',
-  standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './pollution-form.html',
-  styleUrl: './pollution-form.scss',
 })
-export class PollutionForm {
-  readonly declared = output<Pollution>();
+export class PollutionForm implements OnInit {
+  // Pollution à modifier (null en création)
+  @Input() pollution: PollutionData | null = null;
+
+  // Désactive le bouton pendant l'envoi au backend
+  @Input() saving = false;
+
+  // Émet les données quand le formulaire est valide
+  readonly declared = output<PollutionData>();
 
   readonly pollutionTypes = POLLUTION_TYPES;
   readonly today = new Date().toISOString().split('T')[0];
@@ -99,7 +104,18 @@ export class PollutionForm {
     photoUrl: { pattern: "L'URL doit commencer par http:// ou https://." },
   };
 
-  /** Retourne le message d'erreur à afficher, ou null */
+  get isEdit(): boolean {
+    return this.pollution !== null;
+  }
+
+  ngOnInit(): void {
+    // Mode modification : on préremplit le formulaire
+    if (this.pollution) {
+      this.form.patchValue({ ...this.pollution, photoUrl: this.pollution.photoUrl ?? '' });
+    }
+  }
+
+  /** Message d'erreur à afficher pour un champ, ou null */
   errorMessage(name: ControlName): string | null {
     const control = this.form.controls[name];
     if (!control.invalid || !(control.touched || control.dirty)) return null;
@@ -116,7 +132,7 @@ export class PollutionForm {
     const value = this.form.getRawValue();
     this.declared.emit({
       title: value.title.trim(),
-      type: value.type as Pollution['type'],
+      type: value.type as PollutionType,
       description: value.description.trim(),
       observationDate: value.observationDate,
       location: value.location.trim(),

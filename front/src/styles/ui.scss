@@ -1,0 +1,170 @@
+@use 'theme' as t;
+
+// ===== Titres =====
+h2 {
+  margin: 0;
+  color: t.$ocean-700;
+  font-size: 1.35rem;
+}
+
+// ===== Card (formulaires, détail) =====
+app-register-form,
+app-pollution-form-page,
+app-pollution-details,
+main > app-pollution-form {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 540px;
+  margin: auto;
+  padding: 26px 26px 20px;
+  overflow: hidden;
+  background: rgba(t.$white, 0.92);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(t.$white, 0.7);
+  border-radius: t.$radius-lg;
+  box-shadow: 0 14px 40px rgba(t.$ocean-900, 0.22);
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 5px;
+    background: t.$gradient-accent;
+  }
+
+  h2 {
+    margin-bottom: 2px;
+    text-align: center;
+  }
+
+  @media (max-width: 480px) {
+    padding: 22px 16px 16px;
+  }
+}
+
+// ===== Boutons =====
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 9px 16px;
+  border: 1.5px solid transparent;
+  border-radius: t.$radius;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 0.15s,
+    box-shadow 0.2s,
+    background 0.2s,
+    opacity 0.2s;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+  }
+
+  &:focus-visible {
+    outline: 3px solid rgba(t.$ocean-500, 0.5);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &-primary {
+    background: t.$gradient-primary;
+    color: t.$white;
+
+    &:hover:not(:disabled) {
+      box-shadow: 0 6px 14px rgba(t.$green-600, 0.4);
+    }
+  }
+
+  &-secondary {
+    background: t.$white;
+    border-color: t.$ocean-100;
+    color: t.$ocean-700;
+
+    &:hover {
+      background: t.$ocean-100;
+    }
+  }
+
+  &-danger {
+    background: t.$white;
+    border-color: rgba(t.$error, 0.35);
+    color: t.$error;
+
+    &:hover {
+      background: t.$error-bg;
+      border-color: t.$error;
+    }
+  }
+
+  &-sm {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+
+  &-block {
+    width: 100%;
+    margin-top: 6px;
+  }
+}
+
+// ===== Éléments communs aux pages =====
+.back-link {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: t.$ocean-700;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.state {
+  padding: 24px 0;
+  color: rgba(t.$text, 0.65);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.alert {
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  border: 1.5px solid t.$error;
+  border-radius: t.$radius;
+  background: t.$error-bg;
+  color: t.$error;
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: t.$ocean-100;
+  color: t.$ocean-700;
+  font-size: 0.72rem;
+  font-weight: 700;
+}

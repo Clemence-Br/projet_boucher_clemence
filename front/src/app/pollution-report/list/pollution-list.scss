@@ -1,0 +1,133 @@
+@use '../../../styles/theme' as t;
+
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: t.$green-50;
+  border: 1.5px solid t.$green-100;
+  border-radius: t.$radius;
+  padding: 16px;
+}
+
+// ===== Filtres =====
+.filters {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 10px;
+  align-items: end;
+  margin-bottom: 12px;
+  padding: 12px;
+
+  @media (max-width: 720px) {
+    grid-template-columns: 1fr 1fr;
+    .wide {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  input,
+  select {
+    padding: 7px 10px;
+    border: 1.5px solid t.$ocean-100;
+    border-radius: t.$radius;
+    background: t.$white;
+    color: t.$text;
+    font: inherit;
+    font-size: 0.85rem;
+    outline: none;
+
+    &:focus {
+      border-color: t.$green-500;
+      box-shadow: 0 0 0 3px rgba(t.$green-500, 0.2);
+    }
+  }
+}
+
+.results-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 30px;
+  margin-bottom: 8px;
+  color: rgba(t.$text, 0.7);
+  font-size: 0.8rem;
+}
+
+// ===== Liste =====
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  background: t.$white;
+  border: 1.5px solid t.$green-100;
+  border-radius: t.$radius;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+
+  &:hover {
+    border-color: t.$green-500;
+    box-shadow: 0 4px 12px rgba(t.$ocean-900, 0.08);
+  }
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.item-main {
+  display: grid;
+  flex: 1;
+  gap: 3px;
+  min-width: 0;
+  color: inherit;
+  text-decoration: none;
+
+  .badge {
+    justify-self: start;
+  }
+}
+
+.item-title {
+  overflow: hidden;
+  color: t.$ocean-700;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.item-meta {
+  color: rgba(t.$text, 0.7);
+  font-size: 0.78rem;
+}
+
+.item-actions {
+  display: flex;
+  flex-shrink: 0;
+  gap: 6px;
+}

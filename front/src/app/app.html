@@ -8,15 +8,11 @@
   </a>
 
   <nav class="nav-links">
+    <a routerLink="/pollutions" routerLinkActive="active">Pollutions</a>
     <a routerLink="/inscription" routerLinkActive="active">Inscription</a>
-    <a routerLink="/pollution" routerLinkActive="active">Déclarer une pollution</a>
   </nav>
 </header>
 
 <main>
-  <div class="card">
-    <div class="card-body">
-      <router-outlet />
-    </div>
-  </div>
+  <router-outlet />
 </main>
