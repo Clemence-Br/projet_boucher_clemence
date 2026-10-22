@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule, NgForm, NgModel } from '@angular/forms';
+import { finalize } from 'rxjs';
+import { AuthService } from '../services/auth';
+import { SignUpResponse } from '../models/auth';
 
 interface User {
   login: string;
@@ -12,19 +15,19 @@ interface User {
 
 @Component({
   selector: 'app-register-form',
-  standalone: true,
   imports: [FormsModule],
   templateUrl: './register-form.html',
-  styleUrls: ['./register-form.scss'],
+  styleUrl: './register-form.scss',
 })
 export class RegisterForm {
+  private readonly authService = inject(AuthService);
+
   user: User = this.emptyUser();
 
-  submittedUser: User | null = null;
-
-  get maskedPassword(): string {
-    return '•'.repeat(this.submittedUser?.password.length ?? 0);
-  }
+  // États
+  readonly loading = signal(false);
+  readonly errorMessage = signal<string | null>(null);
+  readonly registeredUser = signal<SignUpResponse | null>(null);
 
   // ===== Validation =====
 
@@ -49,22 +52,35 @@ export class RegisterForm {
 
   // Le formulaire peut être soumis
   canSubmit(form: NgForm): boolean {
-    return !!form.valid && !this.passwordsMismatch;
+    return !!form.valid && !this.passwordsMismatch && !this.loading();
   }
 
   // ===== Actions =====
-
-  onSubmit(form: NgForm) {
-    if (this.canSubmit(form)) {
-      this.submittedUser = { ...this.user };
-    } else {
+  onSubmit(form: NgForm): void {
+    if (!this.canSubmit(form)) {
       form.form.markAllAsTouched();
+      return;
     }
+
+    this.loading.set(true);
+    this.errorMessage.set(null);
+
+    // confirmPassword est inutile au backend
+    const { confirmPassword, ...payload } = this.user;
+
+    this.authService
+      .signUp(payload)
+      .pipe(finalize(() => this.loading.set(false)))
+      .subscribe({
+        next: (response) => this.registeredUser.set(response),
+        error: (err: Error) => this.errorMessage.set(err.message),
+      });
   }
 
-  newRegistration() {
+  newRegistration(): void {
     this.user = this.emptyUser();
-    this.submittedUser = null;
+    this.registeredUser.set(null);
+    this.errorMessage.set(null);
   }
 
   private emptyUser(): User {

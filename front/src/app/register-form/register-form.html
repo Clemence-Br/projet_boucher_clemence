@@ -1,5 +1,5 @@
 <div class="form-container">
-  @if (!submittedUser) {
+  @if (!registeredUser()) {
     <!-- ===== FORMULAIRE ===== -->
     <h2>Inscription</h2>
     <p class="required-note"><span class="star">*</span> Champs obligatoires</p>
@@ -25,7 +25,7 @@
       <div class="form-group">
         <label for="nom" class="required">Nom</label>
         <input type="text" id="nom" name="nom" [(ngModel)]="user.nom" required #nom="ngModel" />
-        
+
         @if (hasError(nom)) {
           <div class="error">Le nom est requis.</div>
         }
@@ -61,16 +61,16 @@
           #email="ngModel"
         />
 
-       @if (hasError(email)) {
-        <div class="error">
-          @if (hasErrorType(email, 'required')) {
-            <span>L'email est requis.</span>
-          }
-          @if (hasErrorType(email, 'email')) {
-            <span>Le format de l'email est invalide.</span>
-          }
-        </div>
-      }
+        @if (hasError(email)) {
+          <div class="error">
+            @if (hasErrorType(email, 'required')) {
+              <span>L'email est requis.</span>
+            }
+            @if (hasErrorType(email, 'email')) {
+              <span>Le format de l'email est invalide.</span>
+            }
+          </div>
+        }
       </div>
 
       <!-- Mot de passe -->
@@ -84,7 +84,7 @@
           required
           #password="ngModel"
         />
-        
+
         @if (hasError(password)) {
           <div class="error">Le mot de passe est requis.</div>
         }
@@ -101,7 +101,7 @@
           required
           #confirmPassword="ngModel"
         />
-  
+
         @if (hasError(confirmPassword)) {
           <div class="error">La confirmation est requise.</div>
         }
@@ -110,37 +110,43 @@
         }
       </div>
 
+      <!-- Erreurs retournées par le backend -->
+      @if (errorMessage(); as msg) {
+        <div class="alert" role="alert">{{ msg }}</div>
+      }
+
       <button type="submit" [disabled]="!canSubmit(registerForm)">
-        S'inscrire
+        @if (loading()) {
+          Inscription en cours…
+        } @else {
+          S'inscrire
+        }
       </button>
     </form>
   } @else {
+    @let u = registeredUser()!;
 
     <!-- ===== RÉCAPITULATIF ===== -->
     <div class="success-icon">✓</div>
     <h2>Inscription réussie</h2>
-    <p class="recap-intro">Voici le récapitulatif de vos informations :</p>
+    <p class="recap-intro">Votre compte a bien été créé :</p>
 
     <dl class="recap">
       <div class="recap-row">
         <dt>Login</dt>
-        <dd>{{ submittedUser.login }}</dd>
+        <dd>{{ u.login }}</dd>
       </div>
       <div class="recap-row">
         <dt>Nom</dt>
-        <dd>{{ submittedUser.nom }}</dd>
+        <dd>{{ u.nom }}</dd>
       </div>
       <div class="recap-row">
         <dt>Prénom</dt>
-        <dd>{{ submittedUser.prenom }}</dd>
+        <dd>{{ u.prenom }}</dd>
       </div>
       <div class="recap-row">
         <dt>Email</dt>
-        <dd>{{ submittedUser.email }}</dd>
-      </div>
-      <div class="recap-row">
-        <dt>Mot de passe</dt>
-        <dd>{{ maskedPassword }}</dd>
+        <dd>{{ u.email }}</dd>
       </div>
     </dl>
 
