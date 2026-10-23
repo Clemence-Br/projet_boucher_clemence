@@ -105,7 +105,7 @@ export class PollutionForm implements OnInit {
   };
 
   get isEdit(): boolean {
-    return this.pollution !== null;
+    return !!this.pollution;
   }
 
   ngOnInit(): void {

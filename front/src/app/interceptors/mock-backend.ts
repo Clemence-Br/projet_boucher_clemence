@@ -5,7 +5,7 @@ import {
   HttpResponse,
 } from '@angular/common/http';
 import { delay, map, of, timer } from 'rxjs';
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 import { SignUpRequest, SignUpResponse } from '../models/auth';
 import { Pollution, PollutionData } from '../models/pollution';
 
