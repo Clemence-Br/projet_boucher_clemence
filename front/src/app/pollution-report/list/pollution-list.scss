@@ -1,13 +1,22 @@
 @use '../../../styles/theme' as t;
 
 :host {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
   width: 100%;
-  height: 100%;
   background: t.$green-50;
   border: 1.5px solid t.$green-100;
   border-radius: t.$radius;
   padding: 16px;
+}
+
+.page-header,
+.filters,
+.results-bar,
+.alert {
+  flex-shrink: 0;
 }
 
 // ===== Filtres =====
@@ -70,10 +79,14 @@
 .list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: t.$green-500 transparent;
+  padding: 2px 4px 8px 2px;
   margin: 0;
-  padding: 0;
-  list-style: none;
+  gap: 8px;
 }
 
 .item {
