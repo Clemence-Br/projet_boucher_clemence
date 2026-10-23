@@ -1,3 +1,8 @@
+@use 'styles/theme' as t;
+@use 'styles/ui';
+@use 'styles/form';
+@use 'styles/recap';
+
 *,
 *::before,
 *::after {
@@ -12,8 +17,8 @@ body {
 }
 
 body {
-  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
-  color: #12303a;
-  background: linear-gradient(135deg, #d9eef2 0%, #dff3ea 50%, #f6f4ec 100%);
+  font-family: t.$font-family;
+  color: t.$text;
+  background: t.$gradient-page;
   background-attachment: fixed;
 }

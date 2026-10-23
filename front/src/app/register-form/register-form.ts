@@ -17,7 +17,6 @@ interface User {
   selector: 'app-register-form',
   imports: [FormsModule],
   templateUrl: './register-form.html',
-  styleUrl: './register-form.scss',
 })
 export class RegisterForm {
   private readonly authService = inject(AuthService);

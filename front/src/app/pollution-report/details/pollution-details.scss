@@ -1,0 +1,17 @@
+.detail-header {
+  margin-bottom: 14px;
+  text-align: center;
+
+  h2 {
+    margin-bottom: 6px;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+
+  .btn {
+    flex: 1;
+  }
+}

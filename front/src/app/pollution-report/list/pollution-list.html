@@ -1,0 +1,75 @@
+<header class="page-header">
+  <h2>Pollutions</h2>
+  <a class="btn btn-primary" routerLink="/pollutions/new">+ Nouvelle pollution</a>
+</header>
+
+@if (errorMessage(); as msg) {
+  <div class="alert" role="alert">{{ msg }}</div>
+}
+
+<form class="filters" [formGroup]="filters" aria-label="Filtrer les pollutions">
+  <label class="wide">
+    Recherche
+    <input type="search" formControlName="search" placeholder="Titre ou lieu…" />
+  </label>
+
+  <label>
+    Type
+    <select formControlName="type">
+      <option value="">Tous</option>
+      @for (t of pollutionTypes; track t) {
+        <option [value]="t">{{ t }}</option>
+      }
+    </select>
+  </label>
+
+  <label>
+    Du
+    <input type="date" formControlName="dateFrom" [max]="filters.controls.dateTo.value" />
+  </label>
+
+  <label>
+    Au
+    <input type="date" formControlName="dateTo" [min]="filters.controls.dateFrom.value" />
+  </label>
+</form>
+
+@if (loading()) {
+  <p class="state" role="status">Chargement des pollutions…</p>
+} @else {
+  <div class="results-bar">
+    <span>{{ filtered().length }} / {{ pollutions().length }} pollution(s)</span>
+    @if (hasActiveFilters()) {
+      <button type="button" class="btn btn-secondary btn-sm" (click)="filters.reset()">
+        Réinitialiser les filtres
+      </button>
+    }
+  </div>
+
+  <ul class="list">
+    @for (p of filtered(); track p.id) {
+      <li class="item">
+        <a class="item-main" [routerLink]="['/pollutions', p.id]">
+          <span class="item-title">{{ p.title }}</span>
+          <span class="badge">{{ p.type }}</span>
+          <span class="item-meta">
+            📍 {{ p.location }} · {{ p.observationDate | date: 'dd/MM/yyyy' }}
+          </span>
+        </a>
+
+        <div class="item-actions">
+          <a class="btn btn-secondary btn-sm" [routerLink]="['/pollutions', p.id, 'edit']">
+            Modifier
+          </a>
+          <button type="button" class="btn btn-danger btn-sm" (click)="remove(p)">Supprimer</button>
+        </div>
+      </li>
+    } @empty {
+      <li class="state">
+        {{
+          pollutions().length ? 'Aucun résultat pour ces filtres.' : 'Aucune pollution déclarée.'
+        }}
+      </li>
+    }
+  </ul>
+}

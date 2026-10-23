@@ -1,0 +1,48 @@
+<a class="back-link" routerLink="/pollutions">← Retour à la liste</a>
+
+@if (loading()) {
+  <p class="state" role="status">Chargement…</p>
+} @else {
+  @if (pollution(); as p) {
+    <header class="detail-header">
+      <h2>{{ p.title }}</h2>
+      <span class="badge">{{ p.type }}</span>
+    </header>
+
+    @if (p.photoUrl) {
+      <app-pollution-photo [src]="p.photoUrl" [alt]="'Photo de la pollution : ' + p.title" />
+    }
+
+    <dl class="recap">
+      <div class="recap-row">
+        <dt>Description</dt>
+        <dd>{{ p.description }}</dd>
+      </div>
+      <div class="recap-row">
+        <dt>Date</dt>
+        <dd>{{ p.observationDate | date: 'dd/MM/yyyy' }}</dd>
+      </div>
+      <div class="recap-row">
+        <dt>Lieu</dt>
+        <dd>{{ p.location }}</dd>
+      </div>
+      <div class="recap-row">
+        <dt>Latitude</dt>
+        <dd>{{ p.latitude }}</dd>
+      </div>
+      <div class="recap-row">
+        <dt>Longitude</dt>
+        <dd>{{ p.longitude }}</dd>
+      </div>
+    </dl>
+
+    <div class="actions">
+      <a class="btn btn-secondary" [routerLink]="['/pollutions', p.id, 'edit']">Modifier</a>
+      <button type="button" class="btn btn-danger" (click)="remove(p)">Supprimer</button>
+    </div>
+  }
+
+  @if (errorMessage(); as msg) {
+    <div class="alert" role="alert">{{ msg }}</div>
+  }
+}

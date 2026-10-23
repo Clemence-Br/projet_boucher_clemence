@@ -1,0 +1,14 @@
+<a class="back-link" routerLink="/pollutions">← Retour à la liste</a>
+
+@if (loading()) {
+  <p class="state" role="status">Chargement…</p>
+} @else if (isEdit() && !pollution()) {
+  <!-- Modification impossible : la pollution n'a pas pu être chargée -->
+  <div class="alert" role="alert">{{ errorMessage() }}</div>
+} @else {
+  <app-pollution-form [pollution]="pollution()" [saving]="saving()" (declared)="onSubmit($event)" />
+
+  @if (errorMessage(); as msg) {
+    <div class="alert" role="alert">{{ msg }}</div>
+  }
+}

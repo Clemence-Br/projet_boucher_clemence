@@ -94,44 +94,13 @@ main {
   flex: 1;
   min-height: 0;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
+  flex-direction: column;
+  padding: 20px 24px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: t.$green-500 transparent;
 
   @media (max-width: 480px) {
-    padding: 10px;
-  }
-}
-
-.card {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 540px;
-  max-height: 100%;
-  overflow: hidden;
-  background: rgba(t.$white, 0.92);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(t.$white, 0.7);
-  border-radius: t.$radius-lg;
-  box-shadow: 0 14px 40px rgba(t.$ocean-900, 0.22);
-
-  &::before {
-    content: '';
-    flex: 0 0 5px;
-    background: t.$gradient-accent;
-  }
-
-  .card-body {
-    flex: 1 1 auto;
-    min-height: 0;
-    padding: 20px 26px;
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: t.$green-500 transparent;
-
-    @media (max-width: 480px) {
-      padding: 16px;
-    }
+    padding: 12px;
   }
 }

@@ -115,7 +115,7 @@
         <div class="alert" role="alert">{{ msg }}</div>
       }
 
-      <button type="submit" [disabled]="!canSubmit(registerForm)">
+      <button type="submit" class="btn btn-primary btn-block" [disabled]="!canSubmit(registerForm)">
         @if (loading()) {
           Inscription en cours…
         } @else {
@@ -150,6 +150,8 @@
       </div>
     </dl>
 
-    <button type="button" (click)="newRegistration()">Nouvelle inscription</button>
+    <button type="button" class="btn btn-primary btn-block" (click)="newRegistration()">
+      Nouvelle inscription
+    </button>
   }
 </div>
