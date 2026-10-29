@@ -1,15 +1,16 @@
 @use '../../../styles/theme' as t;
-@use '../../../styles/recap';
 
-@include recap.recap;
+:host {
+  display: block;
+}
 
 .photo-wrapper {
   position: relative;
   height: 150px;
   margin-bottom: 12px;
-  border-radius: t.$radius;
   overflow: hidden;
   border: 1.5px solid t.$green-100;
+  border-radius: t.$radius;
 }
 
 .photo {
@@ -34,12 +35,7 @@
   color: t.$ocean-700;
   font-size: 0.8rem;
   font-weight: 600;
-  background: linear-gradient(
-    100deg,
-    t.$green-50 30%,
-    t.$ocean-100 50%,
-    t.$green-50 70%
-  );
+  background: linear-gradient(100deg, t.$green-50 30%, t.$ocean-100 50%, t.$green-50 70%);
   background-size: 200% 100%;
   animation: shimmer 1.4s linear infinite;
 }
@@ -54,18 +50,22 @@
 }
 
 .photo-error {
-  margin-bottom: 12px;
+  margin: 0 0 12px;
   color: t.$error;
-  text-align: center;
   font-size: 0.82rem;
+  text-align: center;
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes shimmer {
-  to { background-position: -200% 0; }
+  to {
+    background-position: -200% 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
