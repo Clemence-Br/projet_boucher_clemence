@@ -116,14 +116,17 @@ let nextId = pollutions.length + 1;
 
 export const mockBackendInterceptor: HttpInterceptorFn = (req, next) => {
   // Inscription : renvoie les données reçues (sans mot de passe) avec un id
-  if (req.method === 'POST' && req.url === SIGN_UP_URL) {
+  if (environment.mock.auth && req.method === 'POST' && req.url === SIGN_UP_URL) {
     const { password, ...data } = req.body as SignUpRequest;
     const response: SignUpResponse = { id: Date.now(), ...data };
     return of(new HttpResponse({ status: 201, body: response })).pipe(delay(800));
   }
 
   // CRUD des pollutions : /pollutions et /pollutions/:id
-  if (req.url === POLLUTIONS_URL || req.url.startsWith(`${POLLUTIONS_URL}/`)) {
+  if (
+    environment.mock.pollutions &&
+    (req.url === POLLUTIONS_URL || req.url.startsWith(`${POLLUTIONS_URL}/`))
+  ) {
     // Si le handler lance une erreur, `map` la transforme en erreur de l'Observable
     return timer(MOCK_DELAY_MS).pipe(map(() => handlePollutions(req)));
   }

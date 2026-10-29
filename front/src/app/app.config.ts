@@ -10,6 +10,10 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes, withComponentInputBinding()),
-    provideHttpClient(withInterceptors(environment.useMock ? [mockBackendInterceptor] : [])),
+    provideHttpClient(
+      withInterceptors(
+        environment.mock.auth || environment.mock.pollutions ? [mockBackendInterceptor] : [],
+      ),
+    ),
   ],
 };

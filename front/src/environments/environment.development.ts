@@ -1,6 +1,9 @@
 export const environment = {
   production: false,
-  useMock: true,
+  mock: {
+    auth: true,
+    pollutions: false,
+  },
   apiUrl: 'http://localhost:3000/api', // URL de l'API backend
   endpoints: {
     signUp: '/auth/signup',

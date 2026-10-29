@@ -1,64 +1,69 @@
 import { Sequelize, DataTypes, Model, Optional, ModelStatic } from "sequelize";
 
+export const POLLUTION_TYPES = [
+  "Plastique",
+  "Chimique",
+  "Dépôt sauvage",
+  "Eau",
+  "Air",
+  "Autre",
+] as const;
+
 export interface PollutionAttributes {
   id: number;
-  ville: string;
-  valeur: number;
-  polluant: string;
-  date: string;
-  description?: string | null;
+  title: string;
+  type: string;
+  description: string;
+  observationDate: string; // "YYYY-MM-DD"
+  location: string;
+  latitude: number;
+  longitude: number;
+  photoUrl?: string | null;
 }
 
-export interface PollutionCreationAttributes
-  extends Optional<PollutionAttributes, "id" | "description"> {}
+export interface PollutionCreationAttributes extends Optional<
+  PollutionAttributes,
+  "id" | "photoUrl"
+> {}
 
 export interface PollutionInstance
-  extends Model<PollutionAttributes, PollutionCreationAttributes>,
+  extends
+    Model<PollutionAttributes, PollutionCreationAttributes>,
     PollutionAttributes {}
 
 export type PollutionModel = ModelStatic<PollutionInstance>;
 
 export default function definePollutions(
   sequelize: Sequelize,
-  _seq?: typeof Sequelize
+  _seq?: typeof Sequelize,
 ): PollutionModel {
-  const Pollutions = sequelize.define<PollutionInstance>(
+  return sequelize.define<PollutionInstance>(
     "pollution",
     {
-      id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-        allowNull: false
-      },
-      ville: {
+      id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+      title: { type: DataTypes.STRING(100), allowNull: false },
+      type: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: { isIn: [[...POLLUTION_TYPES]] },
       },
-      valeur: {
-        type: DataTypes.FLOAT,
-        allowNull: false
+      description: { type: DataTypes.TEXT, allowNull: false },
+      // DATEONLY est renvoyé en "YYYY-MM-DD", exactement ce que le front attend
+      observationDate: { type: DataTypes.DATEONLY, allowNull: false },
+      location: { type: DataTypes.STRING, allowNull: false },
+      // DOUBLE et non DECIMAL : Sequelize renvoie les DECIMAL en chaînes de caractères
+      latitude: {
+        type: DataTypes.DOUBLE,
+        allowNull: false,
+        validate: { min: -90, max: 90 },
       },
-      polluant: {
-        type: DataTypes.STRING,
-        allowNull: false
+      longitude: {
+        type: DataTypes.DOUBLE,
+        allowNull: false,
+        validate: { min: -180, max: 180 },
       },
-      date: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      description: {
-        type: DataTypes.STRING,
-        allowNull: true
-      }
+      photoUrl: { type: DataTypes.TEXT, allowNull: true },
     },
-    {
-      tableName: "pollution",
-      freezeTableName: true,
-      timestamps: false
-    }
+    { tableName: "pollution", freezeTableName: true, timestamps: false },
   );
-
-  return Pollutions;
 }
-
