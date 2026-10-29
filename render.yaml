@@ -39,9 +39,9 @@ services:
   - type: web
     name: pollution-front
     runtime: static
-    rootDir: front/pollution
+    rootDir: front
     buildCommand: npm install && npm run build
-    staticPublishPath: dist/pollution/browser
+    staticPublishPath: dist/front/browser
     routes:
       - type: rewrite
         source: /*
@@ -54,6 +54,3 @@ services:
           type: web
           name: pollution-api
           property: host
-
-
-
