@@ -10,6 +10,7 @@ export interface AppConfig {
   BDD: DatabaseConfig;
 }
 
+// On utilise directement la BDD de prod en env local (juste pour éviter de créer une BDD locale, c'est pas très propre, I know)
 export const config: AppConfig = {
   BDD: {
     host:
