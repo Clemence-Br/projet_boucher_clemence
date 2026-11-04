@@ -48,10 +48,9 @@ export default function definePollutions(
         validate: { isIn: [[...POLLUTION_TYPES]] },
       },
       description: { type: DataTypes.TEXT, allowNull: false },
-      // DATEONLY est renvoyé en "YYYY-MM-DD", exactement ce que le front attend
+      // DATEONLY est renvoyé en "YYYY-MM-DD"
       observationDate: { type: DataTypes.DATEONLY, allowNull: false },
       location: { type: DataTypes.STRING, allowNull: false },
-      // DOUBLE et non DECIMAL : Sequelize renvoie les DECIMAL en chaînes de caractères
       latitude: {
         type: DataTypes.DOUBLE,
         allowNull: false,

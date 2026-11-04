@@ -18,7 +18,7 @@ const pickBody = (b: Record<string, unknown>) => ({
   photoUrl: b.photoUrl || null,
 });
 
-/** Validation minimale côté serveur : ne jamais se fier uniquement au front */
+/** Validation */
 const validate = (d: ReturnType<typeof pickBody>): string | null => {
   if (!d.title || !d.description || !d.location || !d.observationDate) {
     return "Titre, description, lieu et date sont requis.";
@@ -113,7 +113,7 @@ export const update = async (req: Request, res: Response): Promise<void> => {
     }
 
     await pollution.update(data as never);
-    res.status(200).json(pollution); // le front attend l'objet mis à jour
+    res.status(200).json(pollution);
   } catch (err: unknown) {
     res
       .status(500)
