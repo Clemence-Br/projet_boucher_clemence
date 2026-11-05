@@ -1,8 +1,8 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
-import { User } from '../models/user';
-import { UserService } from '../services/user';
+import { User } from '../../models/user';
+import { UserService } from '../../services/user';
 
 @Component({
   selector: 'app-user-list',

@@ -1,9 +1,9 @@
 import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
-import { Credentials, User } from '../models/user';
-import { UserService } from '../services/user';
-import { Session } from '../services/session';
+import { Credentials, User } from '../../models/user';
+import { UserService } from '../../services/user';
+import { Session } from '../../services/session';
 import { LoginForm } from '../login-form/login-form';
 import { RegisterForm } from '../register-form/register-form';
 

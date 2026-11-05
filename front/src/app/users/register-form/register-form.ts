@@ -1,8 +1,8 @@
 import { Component, inject, output, signal } from '@angular/core';
 import { FormsModule, NgForm, NgModel } from '@angular/forms';
 import { finalize } from 'rxjs';
-import { UserService } from '../services/user';
-import { User, UserCreate } from '../models/user';
+import { UserService } from '../../services/user';
+import { User, UserCreate } from '../../models/user';
 
 /** Modèle du formulaire (inclut confirmPassword, qui reste côté client) */
 interface RegisterModel extends UserCreate {
