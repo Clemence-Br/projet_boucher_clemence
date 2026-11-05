@@ -12,7 +12,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes, withComponentInputBinding()),
     provideHttpClient(
       withInterceptors(
-        environment.mock.auth || environment.mock.pollutions ? [mockBackendInterceptor] : [],
+        environment.mock.users || environment.mock.pollutions ? [mockBackendInterceptor] : [],
       ),
     ),
   ],

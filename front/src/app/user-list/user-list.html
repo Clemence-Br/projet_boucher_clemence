@@ -1,0 +1,26 @@
+<header class="page-header">
+  <h2>Utilisateurs</h2>
+  <a class="btn btn-primary" routerLink="/utilisateurs/new">+ Nouvel utilisateur</a>
+</header>
+
+@if (errorMessage(); as msg) {
+  <div class="alert" role="alert">{{ msg }}</div>
+}
+
+@if (loading()) {
+  <p class="state" role="status">Chargement des utilisateurs…</p>
+} @else {
+  <ul class="list">
+    @for (u of users(); track u.id) {
+      <li class="item">
+        <span class="avatar">{{ u.prenom[0] }}{{ u.nom[0] }}</span>
+        <div class="item-info">
+          <span class="item-title">{{ u.prenom }} {{ u.nom }}</span>
+          <span class="item-meta">&#64;{{ u.login }} · {{ u.email }}</span>
+        </div>
+      </li>
+    } @empty {
+      <li class="state">Aucun utilisateur.</li>
+    }
+  </ul>
+}

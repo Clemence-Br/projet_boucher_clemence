@@ -7,12 +7,23 @@
     </span>
   </a>
 
-  <nav class="nav-links">
-    <a routerLink="/pollutions" routerLinkActive="active">Pollutions</a>
-    <a routerLink="/inscription" routerLinkActive="active">Inscription</a>
-  </nav>
+  @if (session.user(); as user) {
+    <nav class="nav-links">
+      <a routerLink="/pollutions" routerLinkActive="active">Pollutions</a>
+      <a routerLink="/utilisateurs" routerLinkActive="active">Utilisateurs</a>
+    </nav>
+
+    <div class="session">
+      <span class="session-name">{{ user.prenom }} {{ user.nom }}</span>
+      <button type="button" class="logout" (click)="logout()">Déconnexion</button>
+    </div>
+  }
 </header>
 
 <main>
-  <router-outlet />
+  <div class="card">
+    <div class="card-body">
+      <router-outlet />
+    </div>
+  </div>
 </main>

@@ -1,12 +1,13 @@
 export const environment = {
   production: true,
   mock: {
-    auth: true,
     pollutions: false,
+    users: false,
   },
   apiUrl: 'https://pollution-api-immg.onrender.com/api', // URL de l'API backend
   endpoints: {
-    signUp: '/auth/signup',
+    users: '/users',
+    login: '/users/login',
     pollutions: '/pollutions',
   },
 };

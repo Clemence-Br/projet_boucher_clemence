@@ -1,0 +1,41 @@
+@use '../../styles/theme' as t;
+
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 16px;
+  padding: 4px;
+  background: t.$green-50;
+  border: 1.5px solid t.$green-100;
+  border-radius: 999px;
+
+  button {
+    flex: 1;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 999px;
+    background: transparent;
+    color: t.$ocean-700;
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+      background 0.2s,
+      color 0.2s;
+
+    &:hover:not(.active) {
+      background: t.$ocean-100;
+    }
+
+    &.active {
+      background: t.$green-500;
+      color: t.$white;
+    }
+
+    &:focus-visible {
+      outline: 3px solid rgba(t.$ocean-500, 0.5);
+      outline-offset: 2px;
+    }
+  }
+}

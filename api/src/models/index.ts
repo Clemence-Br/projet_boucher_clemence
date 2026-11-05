@@ -1,12 +1,14 @@
 import { Sequelize } from "sequelize";
 import { BDD } from "../config";
 import definePollutions, { PollutionModel } from "./pollutions.model";
+import defineUsers, { UserModel } from "./users.model";
 
 const connectionUrl =
   process.env.DATABASE_URL ||
   `postgres://${BDD.user}:${BDD.password}@${BDD.host}/${BDD.bdname}`;
 
-const isLocalHost = connectionUrl.includes("localhost") || connectionUrl.includes("127.0.0.1");
+const isLocalHost =
+  connectionUrl.includes("localhost") || connectionUrl.includes("127.0.0.1");
 const useSsl =
   process.env.DB_SSL === "true" ||
   (process.env.DB_SSL !== "false" && !isLocalHost);
@@ -18,25 +20,27 @@ const sequelize = new Sequelize(connectionUrl, {
     ? {
         ssl: {
           require: true,
-          rejectUnauthorized: false
-        }
+          rejectUnauthorized: false,
+        },
       }
     : {},
   define: {
-    timestamps: false
-  }
+    timestamps: false,
+  },
 });
 
 export interface Database {
   Sequelize: typeof Sequelize;
   sequelize: Sequelize;
   pollutions: PollutionModel;
+  users: UserModel;
 }
 
 export const db: Database = {
   Sequelize,
   sequelize,
-  pollutions: definePollutions(sequelize, Sequelize)
+  pollutions: definePollutions(sequelize, Sequelize),
+  users: defineUsers(sequelize),
 };
 
 export default db;

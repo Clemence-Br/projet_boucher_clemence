@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Session } from './services/session';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,12 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
-export class App {}
+export class App {
+  protected readonly session = inject(Session);
+  private readonly router = inject(Router);
+
+  logout(): void {
+    this.session.logout();
+    this.router.navigate(['/connexion']);
+  }
+}

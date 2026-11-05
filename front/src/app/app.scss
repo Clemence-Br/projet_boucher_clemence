@@ -90,6 +90,43 @@
   }
 }
 
+.session {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  &-name {
+    color: rgba(t.$white, 0.85);
+    font-size: 0.82rem;
+
+    @media (max-width: 720px) {
+      display: none;
+    }
+  }
+}
+
+.logout {
+  padding: 7px 14px;
+  border: 1.5px solid rgba(t.$white, 0.35);
+  border-radius: 999px;
+  background: transparent;
+  color: t.$white;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background: rgba(t.$white, 0.15);
+  }
+
+  &:focus-visible {
+    outline: 3px solid rgba(t.$green-500, 0.7);
+    outline-offset: 2px;
+  }
+}
+
 main {
   flex: 1;
   min-height: 0;

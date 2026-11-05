@@ -1,4 +1,5 @@
-export interface SignUpRequest {
+// Envoyé à l'API
+export interface UserCreate {
   login: string;
   nom: string;
   prenom: string;
@@ -6,10 +7,16 @@ export interface SignUpRequest {
   password: string;
 }
 
-export interface SignUpResponse {
+// Renvoyé par l'API
+export interface User {
   id: number;
   login: string;
   nom: string;
   prenom: string;
   email: string;
+}
+
+export interface Credentials {
+  login: string;
+  password: string;
 }

@@ -1,0 +1,33 @@
+<h2>Connexion</h2>
+<p class="required-note"><span class="star">*</span> Champs obligatoires</p>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+  <div class="form-group">
+    <label for="login" class="required">Login</label>
+    <input id="login" type="text" formControlName="login" autocomplete="username" />
+    @if (hasError('login')) {
+      <div class="error">Le login est requis.</div>
+    }
+  </div>
+
+  <div class="form-group">
+    <label for="password" class="required">Mot de passe</label>
+    <input
+      id="password"
+      type="password"
+      formControlName="password"
+      autocomplete="current-password"
+    />
+    @if (hasError('password')) {
+      <div class="error">Le mot de passe est requis.</div>
+    }
+  </div>
+
+  @if (errorMessage) {
+    <div class="alert" role="alert">{{ errorMessage }}</div>
+  }
+
+  <button type="submit" class="btn btn-primary btn-block" [disabled]="loading">
+    {{ loading ? 'Connexion en cours…' : 'Se connecter' }}
+  </button>
+</form>

@@ -6,14 +6,26 @@ import {
 } from '@angular/common/http';
 import { delay, map, of, timer } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { SignUpRequest, SignUpResponse } from '../models/auth';
+import { Credentials, User, UserCreate } from '../models/user';
 import { Pollution, PollutionData } from '../models/pollution';
 
-const SIGN_UP_URL = `${environment.apiUrl}${environment.endpoints.signUp}`;
+const USERS_URL = `${environment.apiUrl}${environment.endpoints.users}`;
+const LOGIN_URL = `${environment.apiUrl}${environment.endpoints.login}`;
 const POLLUTIONS_URL = `${environment.apiUrl}${environment.endpoints.pollutions}`;
 const MOCK_DELAY_MS = 500;
 
-// Données de test pour simuler le backend
+// ===================== Utilisateurs =====================
+
+let users: User[] = [
+  { id: 1, login: 'admin', nom: 'Admin', prenom: 'Test', email: 'admin@example.com' },
+];
+let nextUserId = 2;
+
+// login -> mot de passe (jamais renvoyé, comme l'API). Compte de départ : admin / admin
+const passwords = new Map<string, string>([['admin', 'admin']]);
+
+// ===================== Pollutions =====================
+
 let pollutions: Pollution[] = [
   {
     id: 1,
@@ -24,8 +36,7 @@ let pollutions: Pollution[] = [
     location: 'Plage de Palavas-les-Flots',
     latitude: 43.5282,
     longitude: 3.9275,
-    photoUrl:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRK85W8DjwKFXfD-AEn6FA5kviBlFTSmF2pUPQCfMiIPQ&s=10',
+    photoUrl: null,
   },
   {
     id: 2,
@@ -36,7 +47,7 @@ let pollutions: Pollution[] = [
     location: "Quai de l'Ill, Strasbourg",
     latitude: 48.5734,
     longitude: 7.7521,
-    photoUrl: null,
+    photoUrl: 'https://picsum.photos/seed/pollution2/600/300',
   },
   {
     id: 3,
@@ -58,8 +69,7 @@ let pollutions: Pollution[] = [
     location: 'Zone industrielle du Port du Rhin',
     latitude: 48.5612,
     longitude: 7.8068,
-    photoUrl:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9mO2ts0hlilUDyTfYAhQ-D2cmRvx0HLl49EDV64rZjw&s=10',
+    photoUrl: null,
   },
   {
     id: 5,
@@ -71,7 +81,7 @@ let pollutions: Pollution[] = [
     location: 'Canal de la Marne au Rhin, Schiltigheim',
     latitude: 48.6075,
     longitude: 7.7469,
-    photoUrl: null,
+    photoUrl: 'https://picsum.photos/seed/pollution5/600/300',
   },
   {
     id: 6,
@@ -83,8 +93,7 @@ let pollutions: Pollution[] = [
     location: 'Chemin rural, Entzheim',
     latitude: 48.5453,
     longitude: 7.6381,
-    photoUrl:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZjthGg2_AsIl3M8zKW8tpt52q-oq9XtRF2x5n-86Vrw&s=10',
+    photoUrl: 'https://picsum.photos/seed/pollution6/600/300',
   },
   {
     id: 7,
@@ -96,8 +105,7 @@ let pollutions: Pollution[] = [
     location: 'D1004, sortie de Brumath',
     latitude: 48.7313,
     longitude: 7.7167,
-    photoUrl:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5EStRlsAxsFbqaiPTo0s8vH3nYUZQwX4HrkJ_bbz6tQ&s=10',
+    photoUrl: 'https://picsum.photos/seed/pollution7/600/300',
   },
   {
     id: 8,
@@ -109,37 +117,91 @@ let pollutions: Pollution[] = [
     location: 'Berges du Rhin, Kehl',
     latitude: 48.5728,
     longitude: 7.8164,
-    photoUrl: null,
+    photoUrl: 'https://picsum.photos/seed/pollution8/600/300',
   },
 ];
-let nextId = pollutions.length + 1;
+let nextPollutionId = pollutions.length + 1;
+
+// ===================== Intercepteur =====================
 
 export const mockBackendInterceptor: HttpInterceptorFn = (req, next) => {
-  // Inscription : renvoie les données reçues (sans mot de passe) avec un id
-  if (environment.mock.auth && req.method === 'POST' && req.url === SIGN_UP_URL) {
-    const { password, ...data } = req.body as SignUpRequest;
-    const response: SignUpResponse = { id: Date.now(), ...data };
-    return of(new HttpResponse({ status: 201, body: response })).pipe(delay(800));
+  // --- Connexion ---
+  if (environment.mock.users && req.method === 'POST' && req.url === LOGIN_URL) {
+    return timer(MOCK_DELAY_MS).pipe(map(() => handleLogin(req)));
   }
 
-  // CRUD des pollutions : /pollutions et /pollutions/:id
+  // --- Utilisateurs : liste et création ---
+  if (environment.mock.users && req.url === USERS_URL) {
+    if (req.method === 'GET') {
+      return of(new HttpResponse({ status: 200, body: [...users] })).pipe(delay(MOCK_DELAY_MS));
+    }
+    if (req.method === 'POST') {
+      return timer(800).pipe(map(() => handleCreateUser(req)));
+    }
+  }
+
+  // --- Pollutions : /pollutions et /pollutions/:id ---
   if (
     environment.mock.pollutions &&
     (req.url === POLLUTIONS_URL || req.url.startsWith(`${POLLUTIONS_URL}/`))
   ) {
-    // Si le handler lance une erreur, `map` la transforme en erreur de l'Observable
     return timer(MOCK_DELAY_MS).pipe(map(() => handlePollutions(req)));
   }
 
+  // Tout le reste part vers la vraie API
   return next(req);
 };
+
+// ===================== Handlers : utilisateurs =====================
+
+function handleLogin(req: HttpRequest<unknown>): HttpResponse<User> {
+  const { login, password } = req.body as Credentials;
+  const user = users.find((u) => u.login === login);
+
+  if (!user || passwords.get(login) !== password) {
+    throw new HttpErrorResponse({
+      status: 401,
+      url: req.url,
+      error: { message: 'Login ou mot de passe incorrect.' },
+    });
+  }
+  return new HttpResponse({ status: 200, body: user });
+}
+
+function handleCreateUser(req: HttpRequest<unknown>): HttpResponse<User> {
+  const { password, ...data } = req.body as UserCreate;
+
+  const taken = users.some(
+    (u) => u.login === data.login || u.email.toLowerCase() === data.email.toLowerCase(),
+  );
+  if (taken) {
+    throw new HttpErrorResponse({
+      status: 409,
+      url: req.url,
+      error: { message: 'Ce login ou cet email est déjà utilisé.' },
+    });
+  }
+
+  const created: User = { id: nextUserId++, ...data };
+  users = [...users, created];
+  passwords.set(data.login, password);
+
+  return new HttpResponse({ status: 201, body: created });
+}
+
+// ===================== Handler : pollutions =====================
 
 function handlePollutions(req: HttpRequest<unknown>): HttpResponse<unknown> {
   const path = req.url.slice(POLLUTIONS_URL.length); // "" ou "/3"
   const id = path ? Number(path.slice(1)) : null;
   const index = id === null ? -1 : pollutions.findIndex((p) => p.id === id);
 
-  const notFound = () => new HttpErrorResponse({ status: 404, url: req.url });
+  const notFound = () =>
+    new HttpErrorResponse({
+      status: 404,
+      url: req.url,
+      error: { message: 'Cette pollution est introuvable.' },
+    });
 
   switch (req.method) {
     case 'GET':
@@ -148,7 +210,7 @@ function handlePollutions(req: HttpRequest<unknown>): HttpResponse<unknown> {
       return new HttpResponse({ status: 200, body: pollutions[index] });
 
     case 'POST': {
-      const created: Pollution = { ...(req.body as PollutionData), id: nextId++ };
+      const created: Pollution = { ...(req.body as PollutionData), id: nextPollutionId++ };
       pollutions = [...pollutions, created];
       return new HttpResponse({ status: 201, body: created });
     }
