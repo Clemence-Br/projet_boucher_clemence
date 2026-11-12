@@ -1,9 +1,13 @@
 export const environment = {
   production: true,
-  useMock: true, // on utilise les mocks en attendant que le backend soit fait
-  apiUrl: '', // URL de l'API backend
+  mock: {
+    pollutions: false,
+    users: false,
+  },
+  apiUrl: 'https://pollution-api-immg.onrender.com/api', // URL de l'API backend
   endpoints: {
-    signUp: '/auth/signup',
+    users: '/users',
+    login: '/users/login',
     pollutions: '/pollutions',
   },
 };

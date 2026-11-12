@@ -1,0 +1,30 @@
+<div class="tabs" role="tablist">
+  <button
+    type="button"
+    role="tab"
+    [class.active]="mode() === 'login'"
+    [attr.aria-selected]="mode() === 'login'"
+    (click)="setMode('login')"
+  >
+    Connexion
+  </button>
+  <button
+    type="button"
+    role="tab"
+    [class.active]="mode() === 'register'"
+    [attr.aria-selected]="mode() === 'register'"
+    (click)="setMode('register')"
+  >
+    Créer un compte
+  </button>
+</div>
+
+@if (mode() === 'login') {
+  <app-login-form
+    [loading]="loading()"
+    [errorMessage]="errorMessage()"
+    (submitted)="onLogin($event)"
+  />
+} @else {
+  <app-register-form (registered)="onRegistered($event)" />
+}

@@ -7,15 +7,12 @@ h2 {
   font-size: 1.35rem;
 }
 
-// ===== Card (formulaires, détail) =====
-app-register-form,
-app-pollution-form-page,
-app-pollution-details,
-main > app-pollution-form {
+// ===== Card =====
+@mixin card($max-width: 540px) {
   position: relative;
   display: block;
   width: 100%;
-  max-width: 540px;
+  max-width: $max-width;
   margin: auto;
   padding: 26px 26px 20px;
   overflow: hidden;
@@ -41,6 +38,26 @@ main > app-pollution-form {
   @media (max-width: 480px) {
     padding: 22px 16px 16px;
   }
+}
+
+// Cartes étroites : formulaires, détail, connexion
+app-auth-page,
+app-user-create-page,
+app-pollution-form-page,
+app-pollution-details,
+main > app-pollution-form {
+  @include card;
+}
+
+// Cartes larges : listes
+app-user-list {
+  @include card(860px);
+}
+
+// Dans un en-tête de liste, le titre reste aligné à gauche
+.page-header h2 {
+  margin: 0;
+  text-align: left;
 }
 
 // ===== Boutons =====

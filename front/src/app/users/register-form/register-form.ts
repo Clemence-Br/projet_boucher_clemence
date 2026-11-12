@@ -1,16 +1,12 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, output, signal } from '@angular/core';
 import { FormsModule, NgForm, NgModel } from '@angular/forms';
 import { finalize } from 'rxjs';
-import { AuthService } from '../services/auth';
-import { SignUpResponse } from '../models/auth';
+import { UserService } from '../../services/user';
+import { User, UserCreate } from '../../models/user';
 
-interface User {
-  login: string;
-  password: string;
+/** Modèle du formulaire (inclut confirmPassword, qui reste côté client) */
+interface RegisterModel extends UserCreate {
   confirmPassword: string;
-  nom: string;
-  prenom: string;
-  email: string;
 }
 
 @Component({
@@ -19,19 +15,20 @@ interface User {
   templateUrl: './register-form.html',
 })
 export class RegisterForm {
-  private readonly authService = inject(AuthService);
+  private readonly userService = inject(UserService);
 
-  user: User = this.emptyUser();
+  model: RegisterModel = this.emptyModel();
 
   // États
   readonly loading = signal(false);
   readonly errorMessage = signal<string | null>(null);
-  readonly registeredUser = signal<SignUpResponse | null>(null);
+  readonly registeredUser = signal<User | null>(null);
+  readonly registered = output<User>();
 
   // ===== Validation =====
 
   get passwordsMismatch(): boolean {
-    return this.user.password !== this.user.confirmPassword;
+    return this.model.password !== this.model.confirmPassword;
   }
 
   // Un champ est en erreur ET l'utilisateur a interagi avec
@@ -64,25 +61,33 @@ export class RegisterForm {
     this.loading.set(true);
     this.errorMessage.set(null);
 
-    // confirmPassword est inutile au backend
-    const { confirmPassword, ...payload } = this.user;
+    const payload: UserCreate = {
+      login: this.model.login,
+      nom: this.model.nom,
+      prenom: this.model.prenom,
+      email: this.model.email,
+      password: this.model.password,
+    };
 
-    this.authService
-      .signUp(payload)
+    this.userService
+      .create(payload)
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
-        next: (response) => this.registeredUser.set(response),
+        next: (response) => {
+          this.registeredUser.set(response);
+          this.registered.emit(response);
+        },
         error: (err: Error) => this.errorMessage.set(err.message),
       });
   }
 
   newRegistration(): void {
-    this.user = this.emptyUser();
+    this.model = this.emptyModel();
     this.registeredUser.set(null);
     this.errorMessage.set(null);
   }
 
-  private emptyUser(): User {
+  private emptyModel(): RegisterModel {
     return { login: '', password: '', confirmPassword: '', nom: '', prenom: '', email: '' };
   }
 }
