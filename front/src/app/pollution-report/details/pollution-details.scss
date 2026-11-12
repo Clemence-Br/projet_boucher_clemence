@@ -5,6 +5,10 @@
   h2 {
     margin-bottom: 6px;
   }
+
+  .badge + .badge {
+    margin-left: 6px;
+  }
 }
 
 .actions {

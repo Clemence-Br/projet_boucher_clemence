@@ -71,6 +71,25 @@
   </div>
 
   <div class="form-group">
+    <label for="dangerIndex">Indice de dangerosité</label>
+    <div class="danger-slider">
+      <input
+        id="dangerIndex"
+        type="range"
+        min="0"
+        [max]="maxDangerIndex"
+        step="1"
+        formControlName="dangerIndex"
+      />
+      <span class="badge danger-value" [appHighlightPollution]="form.controls.dangerIndex.value">
+        {{ form.controls.dangerIndex.value }} ·
+        {{ form.controls.dangerIndex.value | pollutionLevel }}
+      </span>
+    </div>
+    <small class="hint"> Faible 0-20 · Modérée 21-50 · Élevée 51-100 · Dangereuse 101+ </small>
+  </div>
+
+  <div class="form-group">
     <label for="photoUrl">Photo (URL)</label>
     <input id="photoUrl" type="text" formControlName="photoUrl" placeholder="https://..." />
     @if (errorMessage('photoUrl'); as msg) {

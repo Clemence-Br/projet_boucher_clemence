@@ -36,6 +36,7 @@ let pollutions: Pollution[] = [
     location: 'Plage de Palavas-les-Flots',
     latitude: 43.5282,
     longitude: 3.9275,
+    dangerIndex: 15,
     photoUrl: null,
   },
   {
@@ -47,6 +48,7 @@ let pollutions: Pollution[] = [
     location: "Quai de l'Ill, Strasbourg",
     latitude: 48.5734,
     longitude: 7.7521,
+    dangerIndex: 85,
     photoUrl: 'https://picsum.photos/seed/pollution2/600/300',
   },
   {
@@ -58,6 +60,7 @@ let pollutions: Pollution[] = [
     location: 'Forêt de la Robertsau, Strasbourg',
     latitude: 48.6053,
     longitude: 7.7924,
+    dangerIndex: 40,
     photoUrl: null,
   },
   {
@@ -69,6 +72,7 @@ let pollutions: Pollution[] = [
     location: 'Zone industrielle du Port du Rhin',
     latitude: 48.5612,
     longitude: 7.8068,
+    dangerIndex: 60,
     photoUrl: null,
   },
   {
@@ -81,6 +85,7 @@ let pollutions: Pollution[] = [
     location: 'Canal de la Marne au Rhin, Schiltigheim',
     latitude: 48.6075,
     longitude: 7.7469,
+    dangerIndex: 75,
     photoUrl: 'https://picsum.photos/seed/pollution5/600/300',
   },
   {
@@ -93,6 +98,7 @@ let pollutions: Pollution[] = [
     location: 'Chemin rural, Entzheim',
     latitude: 48.5453,
     longitude: 7.6381,
+    dangerIndex: 120,
     photoUrl: 'https://picsum.photos/seed/pollution6/600/300',
   },
   {
@@ -105,6 +111,7 @@ let pollutions: Pollution[] = [
     location: 'D1004, sortie de Brumath',
     latitude: 48.7313,
     longitude: 7.7167,
+    dangerIndex: 20,
     photoUrl: 'https://picsum.photos/seed/pollution7/600/300',
   },
   {
@@ -117,6 +124,7 @@ let pollutions: Pollution[] = [
     location: 'Berges du Rhin, Kehl',
     latitude: 48.5728,
     longitude: 7.8164,
+    dangerIndex: 55,
     photoUrl: 'https://picsum.photos/seed/pollution8/600/300',
   },
 ];

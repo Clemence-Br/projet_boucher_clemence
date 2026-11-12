@@ -31,7 +31,7 @@ app.get("/health", (_req: Request, res: Response) => {
 });
 
 db.sequelize
-  .sync()
+  .sync({ alter: true }) // ajoute les nouvelles colonnes
   .then(async () => {
     await seedPollutions();
   })
