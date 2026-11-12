@@ -75,6 +75,40 @@
     resize: vertical;
     min-height: 60px;
   }
+
+  // Curseur de l'indice de dangerosité
+  .danger-slider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    input[type='range'] {
+      flex: 1;
+      min-width: 0;
+      padding: 0;
+      border: none;
+      background: transparent;
+      accent-color: t.$green-600;
+      cursor: pointer;
+    }
+
+    .danger-value {
+      min-width: 110px;
+      padding: 4px 10px;
+      border: 1px solid transparent;
+      text-align: center;
+      transition:
+        background-color 0.2s,
+        color 0.2s,
+        border-color 0.2s;
+    }
+  }
+
+  .hint {
+    margin-top: 3px;
+    color: rgba(t.$text, 0.6);
+    font-size: 0.72rem;
+  }
 }
 
 .form-row {

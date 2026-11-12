@@ -126,6 +126,12 @@
   }
 }
 
+.item-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
 .item-title {
   overflow: hidden;
   color: t.$ocean-700;

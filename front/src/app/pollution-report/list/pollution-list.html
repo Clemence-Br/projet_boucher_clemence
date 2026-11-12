@@ -51,7 +51,12 @@
       <li class="item">
         <a class="item-main" [routerLink]="['/pollutions', p.id]">
           <span class="item-title">{{ p.title }}</span>
-          <span class="badge">{{ p.type }}</span>
+          <span class="item-badges">
+            <span class="badge">{{ p.type }}</span>
+            <span class="badge" [appHighlightPollution]="p.dangerIndex">
+              {{ p.dangerIndex | pollutionLevel }}
+            </span>
+          </span>
           <span class="item-meta">
             📍 {{ p.location }} · {{ p.observationDate | date: 'dd/MM/yyyy' }}
           </span>
