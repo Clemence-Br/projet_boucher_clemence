@@ -1,4 +1,12 @@
-import { Component, OnInit, computed, inject, input, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  computed,
+  inject,
+  input,
+  signal,
+} from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 import { Pollution, PollutionData } from '../../models/pollution';
@@ -8,6 +16,7 @@ import { PollutionForm } from '../form/pollution-form';
 @Component({
   selector: 'app-pollution-form-page',
   imports: [RouterLink, PollutionForm],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './pollution-form-page.html',
 })
 export class PollutionFormPage implements OnInit {

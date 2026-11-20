@@ -1,4 +1,11 @@
-import { Component, OnInit, computed, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  computed,
+  inject,
+  signal,
+} from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -18,6 +25,7 @@ import { PollutionLevelPipe } from '../../pipes/pollution-level';
     HighlightPollutionDirective,
     PollutionLevelPipe,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './pollution-list.html',
   styleUrl: './pollution-list.scss',
 })

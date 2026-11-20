@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, output } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -39,6 +39,7 @@ function observationDateValidator(control: AbstractControl): ValidationErrors | 
 @Component({
   selector: 'app-pollution-form',
   imports: [ReactiveFormsModule, HighlightPollutionDirective, PollutionLevelPipe],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './pollution-form.html',
 })
 export class PollutionForm implements OnInit {

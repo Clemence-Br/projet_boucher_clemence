@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject, input, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
@@ -11,6 +11,7 @@ import { PollutionLevelPipe } from '../../pipes/pollution-level';
 @Component({
   selector: 'app-pollution-details',
   imports: [DatePipe, RouterLink, PollutionPhoto, HighlightPollutionDirective, PollutionLevelPipe],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './pollution-details.html',
   styleUrl: './pollution-details.scss',
 })
