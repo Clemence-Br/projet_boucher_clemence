@@ -1,4 +1,4 @@
-import { Component, inject, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, output, signal } from '@angular/core';
 import { FormsModule, NgForm, NgModel } from '@angular/forms';
 import { finalize } from 'rxjs';
 import { UserService } from '../../services/user';
@@ -12,6 +12,7 @@ interface RegisterModel extends UserCreate {
 @Component({
   selector: 'app-register-form',
   imports: [FormsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './register-form.html',
 })
 export class RegisterForm {

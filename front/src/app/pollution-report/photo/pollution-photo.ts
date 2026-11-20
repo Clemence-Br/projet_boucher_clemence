@@ -1,7 +1,8 @@
-import { Component, Input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, signal } from '@angular/core';
 
 @Component({
   selector: 'app-pollution-photo',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './pollution-photo.html',
   styleUrl: './pollution-photo.scss',
 })

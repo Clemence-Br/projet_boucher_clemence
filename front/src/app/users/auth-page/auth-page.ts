@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { Credentials, User } from '../../models/user';
@@ -12,6 +12,7 @@ type Mode = 'login' | 'register';
 @Component({
   selector: 'app-auth-page',
   imports: [LoginForm, RegisterForm],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './auth-page.html',
   styleUrl: './auth-page.scss',
 })
