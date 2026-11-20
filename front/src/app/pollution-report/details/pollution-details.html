@@ -7,6 +7,9 @@
     <header class="detail-header">
       <h2>{{ p.title }}</h2>
       <span class="badge">{{ p.type }}</span>
+      <span class="badge" [appHighlightPollution]="p.dangerIndex">
+        {{ p.dangerIndex | pollutionLevel }}
+      </span>
     </header>
 
     @if (p.photoUrl) {
@@ -14,6 +17,10 @@
     }
 
     <dl class="recap">
+      <div class="recap-row">
+        <dt>Indice de dangerosité</dt>
+        <dd>{{ p.dangerIndex }} ({{ p.dangerIndex | pollutionLevel }})</dd>
+      </div>
       <div class="recap-row">
         <dt>Description</dt>
         <dd>{{ p.description }}</dd>

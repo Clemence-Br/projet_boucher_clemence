@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import db from "../models";
-import { POLLUTION_TYPES } from "../models/pollutions.model";
+import { MAX_DANGER_INDEX, POLLUTION_TYPES } from "../models/pollutions.model";
 
 const Pollutions = db.pollutions;
 
@@ -15,6 +15,7 @@ const pickBody = (b: Record<string, unknown>) => ({
   location: b.location,
   latitude: b.latitude,
   longitude: b.longitude,
+  dangerIndex: b.dangerIndex ?? 0,
   photoUrl: b.photoUrl || null,
 });
 
@@ -33,6 +34,13 @@ const validate = (d: ReturnType<typeof pickBody>): string | null => {
     d.longitude > 180
   )
     return "Longitude invalide.";
+  if (
+    typeof d.dangerIndex !== "number" ||
+    !Number.isInteger(d.dangerIndex) ||
+    d.dangerIndex < 0 ||
+    d.dangerIndex > MAX_DANGER_INDEX
+  )
+    return `Indice de dangerosité invalide (entier entre 0 et ${MAX_DANGER_INDEX}).`;
   return null;
 };
 

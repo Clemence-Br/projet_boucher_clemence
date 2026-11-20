@@ -5,10 +5,12 @@ import { finalize } from 'rxjs';
 import { Pollution } from '../../models/pollution';
 import { PollutionService } from '../../services/pollution';
 import { PollutionPhoto } from '../photo/pollution-photo';
+import { HighlightPollutionDirective } from '../../directives/highlight-pollution';
+import { PollutionLevelPipe } from '../../pipes/pollution-level';
 
 @Component({
   selector: 'app-pollution-details',
-  imports: [DatePipe, RouterLink, PollutionPhoto],
+  imports: [DatePipe, RouterLink, PollutionPhoto, HighlightPollutionDirective, PollutionLevelPipe],
   templateUrl: './pollution-details.html',
   styleUrl: './pollution-details.scss',
 })

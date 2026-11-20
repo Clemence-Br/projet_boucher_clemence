@@ -7,7 +7,14 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
-import { POLLUTION_TYPES, PollutionData, PollutionType } from '../../models/pollution';
+import {
+  MAX_DANGER_INDEX,
+  POLLUTION_TYPES,
+  PollutionData,
+  PollutionType,
+} from '../../models/pollution';
+import { HighlightPollutionDirective } from '../../directives/highlight-pollution';
+import { PollutionLevelPipe } from '../../pipes/pollution-level';
 
 type ControlName =
   | 'title'
@@ -31,7 +38,7 @@ function observationDateValidator(control: AbstractControl): ValidationErrors | 
 
 @Component({
   selector: 'app-pollution-form',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, HighlightPollutionDirective, PollutionLevelPipe],
   templateUrl: './pollution-form.html',
 })
 export class PollutionForm implements OnInit {
@@ -45,6 +52,7 @@ export class PollutionForm implements OnInit {
   readonly declared = output<PollutionData>();
 
   readonly pollutionTypes = POLLUTION_TYPES;
+  readonly maxDangerIndex = MAX_DANGER_INDEX;
   readonly today = new Date().toISOString().split('T')[0];
 
   readonly form = new FormGroup({
@@ -75,6 +83,10 @@ export class PollutionForm implements OnInit {
     photoUrl: new FormControl('', {
       nonNullable: true,
       validators: [Validators.pattern(/^\s*(https?:\/\/\S+)?\s*$/i)], // optionnel
+    }),
+    dangerIndex: new FormControl(0, {
+      nonNullable: true,
+      validators: [Validators.min(0), Validators.max(MAX_DANGER_INDEX)],
     }),
   });
 
@@ -111,7 +123,11 @@ export class PollutionForm implements OnInit {
   ngOnInit(): void {
     // Mode modification : on préremplit le formulaire
     if (this.pollution) {
-      this.form.patchValue({ ...this.pollution, photoUrl: this.pollution.photoUrl ?? '' });
+      this.form.patchValue({
+        ...this.pollution,
+        photoUrl: this.pollution.photoUrl ?? '',
+        dangerIndex: this.pollution.dangerIndex ?? 0,
+      });
     }
   }
 
@@ -138,6 +154,7 @@ export class PollutionForm implements OnInit {
       location: value.location.trim(),
       latitude: value.latitude!,
       longitude: value.longitude!,
+      dangerIndex: value.dangerIndex,
       photoUrl: value.photoUrl.trim() || null,
     });
   }

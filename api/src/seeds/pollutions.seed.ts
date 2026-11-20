@@ -11,6 +11,7 @@ const SAMPLE = [
     location: "Plage de Palavas-les-Flots",
     latitude: 43.5282,
     longitude: 3.9275,
+    dangerIndex: 15,
     photoUrl:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRK85W8DjwKFXfD-AEn6FA5kviBlFTSmF2pUPQCfMiIPQ&s=10",
   },
@@ -23,6 +24,7 @@ const SAMPLE = [
     location: "Quai de l'Ill, Strasbourg",
     latitude: 48.5734,
     longitude: 7.7521,
+    dangerIndex: 85,
     photoUrl: null,
   },
   {
@@ -35,6 +37,7 @@ const SAMPLE = [
     location: "Forêt de la Robertsau, Strasbourg",
     latitude: 48.6053,
     longitude: 7.7924,
+    dangerIndex: 40,
     photoUrl: null,
   },
   {
@@ -46,6 +49,7 @@ const SAMPLE = [
     location: "Zone industrielle du Port du Rhin",
     latitude: 48.5612,
     longitude: 7.8068,
+    dangerIndex: 60,
     photoUrl:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9mO2ts0hlilUDyTfYAhQ-D2cmRvx0HLl49EDV64rZjw&s=10",
   },
@@ -59,6 +63,7 @@ const SAMPLE = [
     location: "Canal de la Marne au Rhin, Schiltigheim",
     latitude: 48.6075,
     longitude: 7.7469,
+    dangerIndex: 75,
     photoUrl: null,
   },
   {
@@ -71,6 +76,7 @@ const SAMPLE = [
     location: "Chemin rural, Entzheim",
     latitude: 48.5453,
     longitude: 7.6381,
+    dangerIndex: 120,
     photoUrl:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZjthGg2_AsIl3M8zKW8tpt52q-oq9XtRF2x5n-86Vrw&s=10",
   },
@@ -84,6 +90,7 @@ const SAMPLE = [
     location: "D1004, sortie de Brumath",
     latitude: 48.7313,
     longitude: 7.7167,
+    dangerIndex: 20,
     photoUrl:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5EStRlsAxsFbqaiPTo0s8vH3nYUZQwX4HrkJ_bbz6tQ&s=10",
   },
@@ -97,6 +104,7 @@ const SAMPLE = [
     location: "Berges du Rhin, Kehl",
     latitude: 48.5728,
     longitude: 7.8164,
+    dangerIndex: 55,
     photoUrl: null,
   },
 ];

@@ -9,6 +9,9 @@ export const POLLUTION_TYPES = [
   "Autre",
 ] as const;
 
+/** Indice de dangerosité */
+export const MAX_DANGER_INDEX = 150;
+
 export interface PollutionAttributes {
   id: number;
   title: string;
@@ -18,12 +21,13 @@ export interface PollutionAttributes {
   location: string;
   latitude: number;
   longitude: number;
+  dangerIndex: number;
   photoUrl?: string | null;
 }
 
 export interface PollutionCreationAttributes extends Optional<
   PollutionAttributes,
-  "id" | "photoUrl"
+  "id" | "photoUrl" | "dangerIndex"
 > {}
 
 export interface PollutionInstance
@@ -60,6 +64,12 @@ export default function definePollutions(
         type: DataTypes.DOUBLE,
         allowNull: false,
         validate: { min: -180, max: 180 },
+      },
+      dangerIndex: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
+        validate: { min: 0, max: MAX_DANGER_INDEX },
       },
       photoUrl: { type: DataTypes.TEXT, allowNull: true },
     },

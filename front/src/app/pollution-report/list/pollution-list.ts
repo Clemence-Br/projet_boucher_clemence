@@ -6,10 +6,18 @@ import { RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 import { POLLUTION_TYPES, Pollution } from '../../models/pollution';
 import { PollutionService } from '../../services/pollution';
+import { HighlightPollutionDirective } from '../../directives/highlight-pollution';
+import { PollutionLevelPipe } from '../../pipes/pollution-level';
 
 @Component({
   selector: 'app-pollution-list',
-  imports: [ReactiveFormsModule, RouterLink, DatePipe],
+  imports: [
+    ReactiveFormsModule,
+    RouterLink,
+    DatePipe,
+    HighlightPollutionDirective,
+    PollutionLevelPipe,
+  ],
   templateUrl: './pollution-list.html',
   styleUrl: './pollution-list.scss',
 })

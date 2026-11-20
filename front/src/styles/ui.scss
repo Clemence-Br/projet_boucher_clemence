@@ -180,6 +180,7 @@ app-user-list {
   display: inline-block;
   padding: 2px 10px;
   border-radius: 999px;
+  border: 1px solid transparent;
   background: t.$ocean-100;
   color: t.$ocean-700;
   font-size: 0.72rem;
