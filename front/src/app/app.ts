@@ -1,6 +1,8 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { Session } from './services/session';
+import { Store } from '@ngxs/store';
+import { AuthState } from './store/auth/auth.state';
+import { Logout } from './store/auth/auth.actions';
 
 @Component({
   selector: 'app-root',
@@ -10,11 +12,15 @@ import { Session } from './services/session';
   styleUrl: './app.scss',
 })
 export class App {
-  protected readonly session = inject(Session);
+  private readonly store = inject(Store);
   private readonly router = inject(Router);
 
+  // Signals alimentés par les sélecteurs du store
+  protected readonly isAuthenticated = this.store.selectSignal(AuthState.isAuthenticated);
+  protected readonly username = this.store.selectSignal(AuthState.username);
+
   logout(): void {
-    this.session.logout();
+    this.store.dispatch(new Logout());
     this.router.navigate(['/connexion']);
   }
 }
