@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngxs/store';
 import { finalize } from 'rxjs';
 import { Credentials, User } from '../../models/user';
 import { UserService } from '../../services/user';
-import { Session } from '../../services/session';
+import { Login } from '../../store/auth/auth.actions';
 import { LoginForm } from '../login-form/login-form';
 import { RegisterForm } from '../register-form/register-form';
 
@@ -18,7 +19,7 @@ type Mode = 'login' | 'register';
 })
 export class AuthPage {
   private readonly userService = inject(UserService);
-  private readonly session = inject(Session);
+  private readonly store = inject(Store);
   private readonly router = inject(Router);
 
   readonly mode = signal<Mode>('login');
@@ -49,7 +50,7 @@ export class AuthPage {
   }
 
   private enter(user: User): void {
-    this.session.login(user);
+    this.store.dispatch(new Login({ email: user.email, nom: `${user.prenom} ${user.nom}` }));
     this.router.navigate(['/pollutions']);
   }
 }

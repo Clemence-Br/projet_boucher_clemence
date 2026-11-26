@@ -7,14 +7,14 @@
     </span>
   </a>
 
-  @if (session.user(); as user) {
+  @if (isAuthenticated()) {
     <nav class="nav-links">
       <a routerLink="/pollutions" routerLinkActive="active">Pollutions</a>
       <a routerLink="/utilisateurs" routerLinkActive="active">Utilisateurs</a>
     </nav>
 
     <div class="session">
-      <span class="session-name">{{ user.prenom }} {{ user.nom }}</span>
+      <span class="session-name">{{ username() }}</span>
       <button type="button" class="logout" (click)="logout()">Déconnexion</button>
     </div>
   }
