@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 import { User } from '../../models/user';
@@ -7,6 +7,7 @@ import { UserService } from '../../services/user';
 @Component({
   selector: 'app-user-list',
   imports: [RouterLink],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './user-list.html',
   styleUrl: './user-list.scss',
 })
